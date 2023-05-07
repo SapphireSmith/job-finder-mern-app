@@ -1,12 +1,10 @@
 import React from 'react'
-import AdminNav from '../../../components/adminNav'
 import UsersIcon from '../../../assets/users-alt.svg';
 import { Spin as Hamburger } from 'hamburger-react'
 
 const Dashboard = () => {
   return (
     <div>
-      {/* <AdminNav/> */}
       <nav >
         <div className=' bg-[#02203c] flex justify-between w-full '>
           <div className='menu m-5 w-1/2'>
