@@ -1,7 +1,9 @@
 import axios from 'axios'
-import { BASE_URL } from '../../env';
 
-axios.defaults.baseURL = BASE_URL
+const URL = import.meta.env.BASE_URL
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
+
 
 //** User register function */
 export const userRegister = async (values) => {
@@ -27,7 +29,7 @@ export const userRegister = async (values) => {
 export const userLogin = async (values) => {
    try {
       const response = await axios.post('user/login', { ...values });
-
+      
       const msg = response.data.msg;
       const status = response.status;
 
