@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
+dotenv.config()
 
 const connectDb = async () => {
     try {
-        const url = 'mongodb://localhost:27017/JobFinder'
+        const url = process.env.DATABASE_URL;
         const options = {
             useNewUrlParser: true,
             useUnifiedTopology: true
