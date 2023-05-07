@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import routes from '../server/routes/routes.js'
 import { connectDb } from './database/connection.js';
 import morgan from 'morgan';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const app = express();
@@ -14,7 +16,7 @@ app.use(morgan('tiny'))
 app.disable('x-power-by')
 app.use('/', routes)
 
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 connectDb().then(() => {
     app.listen(PORT, () => {
