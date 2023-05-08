@@ -10,6 +10,11 @@ import Home from './pages/Users/HomePage/Home';
 //** Admin Pages import */
 import LoginAdmin from './pages/Admin/AdminLogin/LoginAdmin';
 import Dashboard from './pages/Admin/Dashboard/Dashboard'
+import Users from './pages/Admin/Users/Users';
+import NewRegisters from './pages/Admin/NewRegisters/NewRegisters'
+import CreateJob from './pages/Admin/CreateJob/CreateJob'
+import CreateAdmin from './pages/Admin/CreateAdmin/CreateAdmin'
+import ViewJobs from './pages/Admin/ViewJobs/ViewJobs'
 
 
 const router = createBrowserRouter([
@@ -42,6 +47,26 @@ const router = createBrowserRouter([
   {
     path: 'admin/dashboard',
     element: <Dashboard />
+  },
+  {
+    path: 'admin/dashboard/users',
+    element:<Users/>
+  },
+  {
+    path:'admin/dashboard/new-registers',
+    element:<NewRegisters/>
+  },
+  {
+    path:'admin/dashboard/new-job',
+    element:<CreateJob/>
+  },
+  {
+    path:'admin/dashboard/add-admin',
+    element:<CreateAdmin/>
+  },
+  {
+    path:'admin/dashboard/view-jobs',
+    element:<ViewJobs/>
   }
 
   //** End of admin routes */
