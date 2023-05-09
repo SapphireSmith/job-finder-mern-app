@@ -1,5 +1,5 @@
 import express from 'express'
-import { userLogin, userRegister, adminLogin } from '../controllers/controller.js';
+import { userLogin, userRegister, adminLogin, newRegisters } from '../controllers/controller.js';
 
 const router = express.Router();
 
@@ -16,6 +16,9 @@ router.post('/user/login', userLogin);
 
 //** POST REQUESTS */
 router.post('/admin/login', adminLogin);
+
+//** GET REQUESTS */
+router.get('/admin/new-registers', newRegisters)
 
 
 

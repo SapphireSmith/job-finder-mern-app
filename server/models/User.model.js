@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    status:{
+        type:Boolean,
+        require:true
+    },
     createdAt: {
         type: Date,
         default: Date.now

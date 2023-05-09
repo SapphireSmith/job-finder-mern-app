@@ -25,6 +25,7 @@ export const userRegister = async (req, res) => {
                         lastName,
                         password: hashedPassword,
                         email,
+                        status: false,
                         userType
                     });
 
@@ -77,7 +78,7 @@ export const userLogin = async (req, res) => {
 
 //** ADMIN ROUTING FUNCTIONS  */
 
-//** Admin login function */
+//** Login function */
 export const adminLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -99,3 +100,18 @@ export const adminLogin = async (req, res) => {
         res.status(500).send({ error })
     }
 }
+
+//** New registers function */
+export const newRegisters = async (req, res) => {
+    try {
+        const users = await UserModel.find().select('-email -password -_id');
+        if (users.length === 0) {
+            return res.status(200).send({ msg: "No new Registers" });
+        } else {
+            return res.status(200).send(users);
+        }
+    } catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+};
+
