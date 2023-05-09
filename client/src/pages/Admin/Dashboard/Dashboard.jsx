@@ -75,8 +75,8 @@ const Dashboard = () => {
                 <div className='flex users-card  hover:cursor-pointer bg-[#42a0ec] p-7 rounded-lg shadow-inner hover:shadow-xl
                 sm:w-[100%] sm:h-[155px]'>
                   <div className='flex flex-col'>
-                    <h4 className='text-xl font-semibold text-[#eaeaea]'>Create admin</h4>
-                    <p className='pt-6 text-[#eaeaea] font-thin text-[10px] '>Click here manage users</p>
+                    <h4 className='text-xl font-semibold text-[#eaeaea]'>Generate admin</h4>
+                    <p className='pt-6 text-[#eaeaea] font-thin text-[10px] '>Click here Generate admin</p>
                   </div>
                   <div className='users-icon flex w-full relative justify-center items-center'>
                     <FontAwesomeIcon icon={faUserGear} color='#ffff' size='4x' />

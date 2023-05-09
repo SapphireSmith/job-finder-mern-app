@@ -31,8 +31,8 @@ const AdminNav = ({ navValues, z_index }) => {
                     </ul>
                 </div>}
 
-                <div className='logo w-1/2 my-auto m-5 text-white'>
-                    <h1 className='text-center font-semibold text-[30px] italic'>Dashboard</h1>
+                <div className='logo  my-auto m-5 text-white sm:pr-14  pr-8'>
+                    <Link to={'/admin/dashboard'} className='text-center font-semibold text-[20px] sm:text-[30px] italic'>Dashboard</Link>
                 </div>
             </div>
 
