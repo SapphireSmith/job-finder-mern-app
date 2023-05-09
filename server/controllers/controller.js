@@ -104,14 +104,36 @@ export const adminLogin = async (req, res) => {
 //** New registers function */
 export const newRegisters = async (req, res) => {
     try {
-        const users = await UserModel.find().select('-email -password -_id');
-        if (users.length === 0) {
+        const NewUsers = await UserModel.find({ status: false }).select('-email -password');
+        if (NewUsers.length === 0) {
             return res.status(200).send({ msg: "No new Registers" });
         } else {
-            return res.status(200).send(users);
+            return res.status(200).send(NewUsers);
         }
     } catch (error) {
         return res.status(500).send({ error: error.message });
     }
 };
 
+//** Status update New registers */
+export const StatusUpdate = async (req, res) => {
+    console.log('herre');
+    try {
+        console.log('here');
+        const { id } = req.params;
+        console.log(id);
+        const user = await UserModel.findOneAndUpdate(
+            { _id: id },
+            { status: true },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).send({ msg: "User not found" });
+        }
+
+        return res.status(200).send({ msg: "User status updated successfully" });
+    } catch (error) {
+        return res.status(500).send({ error: error.message });
+    }
+};

@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const URL = import.meta.env.BASE_URL
-
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 
+
+//** <<----------- USERS HANDLING FUNCTION ------------------->> */
 
 //** User register function */
 export const userRegister = async (values) => {
@@ -42,6 +42,13 @@ export const userLogin = async (values) => {
    }
 }
 
+//** <<------------ END OF USERS HANDLING FUNCTIONS ------------------>> */
+
+
+
+
+//**  <<----------------- ADMIN HANDLING FUNCTIONS ---------------------->> */
+
 //** Admin login function */
 export const adminLogin = async (values) => {
    try {
@@ -59,3 +66,15 @@ export const adminLogin = async (values) => {
       }
    }
 }
+
+export const getNewRegisters = async () =>{
+   try {
+      const {data} = await axios.get('admin/new-registers');
+      return {data}
+   } catch (error) {
+      return {error:error.data}
+   }
+}
+
+
+//**  <<----------------- END OF ADMIN HANDLING FUNCTIONS ---------------------->> */
