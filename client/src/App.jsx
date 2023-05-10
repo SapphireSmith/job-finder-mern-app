@@ -15,6 +15,7 @@ import NewRegisters from './pages/Admin/NewRegisters/NewRegisters'
 import CreateJob from './pages/Admin/CreateJob/CreateJob'
 import CreateAdmin from './pages/Admin/CreateAdmin/CreateAdmin'
 import ViewJobs from './pages/Admin/ViewJobs/ViewJobs'
+import PageNotFound from './pages/PageNotFound';
 
 
 const router = createBrowserRouter([
@@ -67,9 +68,14 @@ const router = createBrowserRouter([
   {
     path:'admin/dashboard/view-jobs',
     element:<ViewJobs/>
-  }
+  },
 
   //** End of admin routes */
+
+  {
+    path:'*',
+    element:<PageNotFound/>
+  }
 ])
 
 
