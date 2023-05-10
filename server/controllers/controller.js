@@ -106,7 +106,7 @@ export const newRegisters = async (req, res) => {
     try {
         const NewUsers = await UserModel.find({ status: false }).select('-email -password');
         if (NewUsers.length === 0) {
-            return res.status(200).send({ msg: "No new Registers" });
+            return res.status(204).send({ msg: "No new Registers" });
         } else {
             return res.status(200).send(NewUsers);
         }
@@ -115,13 +115,10 @@ export const newRegisters = async (req, res) => {
     }
 };
 
-//** Status update New registers */
+//** Status update New registers function */
 export const StatusUpdate = async (req, res) => {
-    console.log('herre');
     try {
-        console.log('here');
         const { id } = req.params;
-        console.log(id);
         const user = await UserModel.findOneAndUpdate(
             { _id: id },
             { status: true },
@@ -137,3 +134,39 @@ export const StatusUpdate = async (req, res) => {
         return res.status(500).send({ error: error.message });
     }
 };
+
+//** Reject and Delete user */
+export const rejectUser = async (req, res) => {
+
+    try {
+        const { id } = req.params;
+
+        // Assuming you have a User model, you can delete the user like this:
+        const deletedUser = await UserModel.findByIdAndDelete(id);
+
+        if (!deletedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.status(200).json({ message: "User deleted successfully"});
+    } catch (error) {
+        return res.status(500).json({ message: "Server error", error: error });
+    }
+
+}
+
+//** Get all users list function*/
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await UserModel.find({ status: true }).select('-email -password -status');
+
+        if (users.length === 0) {
+            return res.status(404).send({ msg: "No users" })
+        } else {
+            return res.status(201).send(users)
+        }
+    } catch (error) {
+        return res.status(500).send({ error })
+    }
+};
+

@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminNav from '../../../components/AdminNav'
+import { formatDate, getAllUsers } from '../../../helper/helpers'
 
 const Users = () => {
+
+  const [users, setUsers] = useState();
+  const [msg, setMsg] = useState()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, status, msg } = await getAllUsers();
+      if (status === 201) {
+        setUsers(data)
+      } else {
+        setMsg(msg)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+
   const nav = [
     {
       id: 1,
@@ -18,8 +37,8 @@ const Users = () => {
       title: 'Create new Admin',
       path: '/admin/dashboard/add-admin'
     }
-
   ]
+
   return (
     <div>
 
@@ -48,50 +67,33 @@ const Users = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  36286876287687368
-                </th>
-                <td className="px-6 py-4">
-                  John
-                </td>
-                <td className="px-6 py-4">
-                  Recruter
-                </td>
-                <td className="px-6 py-4">
-                  18/4/2004
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  36286876287687368
-                </th>
-                <td className="px-6 py-4">
-                  John
-                </td>
-                <td className="px-6 py-4">
-                  Recruter
-                </td>
-                <td className="px-6 py-4">
-                  18/4/2004
-                </td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  36286876287687368
-                </th>
-                <td className="px-6 py-4">
-                  John
-                </td>
-                <td className="px-6 py-4">
-                  Recruter
-                </td>
-                <td className="px-6 py-4">
-                  18/4/2004
-                </td>
-              </tr>
+              {
+                users && users.map((user) => {
+                  return (
+                    <tr key={user._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                      <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {user._id}
+                      </th>
+                      <td className="px-6 py-4">
+                        {user.firstName}
+                      </td>
+                      <td className="px-6 py-4">
+                        {user.userType}
+                      </td>
+                      <td className="px-6 py-4">
+                        {formatDate(user.createdAt)}
+                      </td>
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
+          {
+            msg && <div className='w-full'>
+              <h3 className='text-white font-bold flex justify-center pt-36'>No users</h3>
+            </div>
+          }
         </div>
       </section>
 

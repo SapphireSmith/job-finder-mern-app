@@ -29,7 +29,7 @@ export const userRegister = async (values) => {
 export const userLogin = async (values) => {
    try {
       const response = await axios.post('user/login', { ...values });
-      
+
       const msg = response.data.msg;
       const status = response.status;
 
@@ -67,14 +67,64 @@ export const adminLogin = async (values) => {
    }
 }
 
-export const getNewRegisters = async () =>{
+//** Get new registered users function */
+export const getNewRegisters = async () => {
    try {
-      const {data} = await axios.get('admin/new-registers');
-      return {data}
+      const data = await axios.get('admin/new-registers');
+      return { status: data.status, data: data.data }
    } catch (error) {
-      return {error:error.data}
+      console.log(error.data.msg);
+      return { error: error.data }
    }
 }
 
+//** Accepting new registered users function */
+export const statusUpdate = async (id) => {
+   try {
+      const { data: { msg }, status } = await axios.post(`admin/new-register/${id}`)
+      return { msg, status }
+   } catch (error) {
+      console.log(error.response.data.msg, error.response.status);
+      return { msg: error.response.data.msg, status: error.response.status }
+   }
+}
+
+//** Get all users function */
+export const getAllUsers = async (id) => {
+   try {
+
+      const { data, status } = await axios.get('admin/users');
+
+      return { data, status }
+   } catch (error) {
+      return { msg: error.response.data.msg, status: error.response.status }
+   }
+
+}
+
+export const deleteUser = async (id) => {
+   try {
+      const { data, status } = await axios.post(`/admin/reject-user/${id}`);
+      console.log(data, status);
+
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+      return { msg: error.response.data.msg, status: error.response.status }
+   }
+}
 
 //**  <<----------------- END OF ADMIN HANDLING FUNCTIONS ---------------------->> */
+
+
+
+
+
+
+//** Helping functions */
+
+export const formatDate = (dateString) => {
+   const date = new Date(dateString);
+   const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+   return date.toLocaleDateString('en-GB', options);
+}

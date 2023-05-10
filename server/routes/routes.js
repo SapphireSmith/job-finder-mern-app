@@ -1,5 +1,5 @@
 import express from 'express'
-import { userLogin, userRegister, adminLogin, newRegisters, StatusUpdate } from '../controllers/controller.js';
+import { userLogin, userRegister, adminLogin, newRegisters, StatusUpdate, getAllUsers, rejectUser } from '../controllers/controller.js';
 
 const router = express.Router();
 
@@ -9,6 +9,8 @@ const router = express.Router();
 router.post('/user/register', userRegister);
 router.post('/user/login', userLogin);
 
+//**END OF USERS ROUTES */
+
 
 
 //** ADMIN ROUTES */
@@ -16,10 +18,13 @@ router.post('/user/login', userLogin);
 //** POST REQUESTS */
 router.post('/admin/login', adminLogin);
 router.post('/admin/new-register/:id', StatusUpdate);
+router.post('/admin/reject-user/:id',rejectUser);
 
 //** GET REQUESTS */
 router.get('/admin/new-registers', newRegisters);
+router.get('/admin/users', getAllUsers)
 
+//**END OF ADMIN ROUTES */
 
 
 export default router
