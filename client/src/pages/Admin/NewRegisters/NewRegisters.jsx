@@ -61,7 +61,7 @@ const NewRegisters = () => {
     <div>
       <AdminNav navValues={nav} />
       <section className='bg-[#112a42]'>
-        <div className='new-registers  w-full h-[100vh] md:h-[100vh] pb-8'>
+        <div className=' mt-20 new-registers  w-full h-[100vh] md:h-[100vh] pb-8'>
           <div className='title uppercase text-center text-[25px] font-medium  text-white p-6'>
             <h3 className='underline'>New Registers</h3>
           </div>

@@ -13,8 +13,8 @@ const AdminNav = ({ navValues }) => {
     }
 
     return (
-        <nav className='z-10' >
-            <div className=' bg-[#02203c] flex justify-between w-full '>
+        <nav className='z-50 fixed top-0 w-full' >
+            <div className='bg-[#02203c] flex justify-between w-full '>
                 <div className='menu m-5 sm:pl-5 md:pl-20'>
                     <div className='hamberger' onClick={() => {
                         setToggle(!toggle)

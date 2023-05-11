@@ -10,7 +10,7 @@ const Dashboard = () => {
     <div>
       <AdminNavbar />
       <section>
-        <div className='h-[100%] bg-[#112a42]'>
+        <div className='h-[100%] mt-20 bg-[#112a42]'>
           <div className='managing-cards cards flex flex-col w-full sm:flex-row sm:flex-wrap sm:justify-around md:px-20'>
 
             <div className='manage-user-card px-14 py-12 flex flex-col min-[480px]:px-20 

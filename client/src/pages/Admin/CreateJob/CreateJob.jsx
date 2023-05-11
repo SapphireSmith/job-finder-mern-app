@@ -52,9 +52,8 @@ const CreateJob = () => {
 
   return (
     <div>
-
+      {/* i need to add z-index for this element  */}
       <AdminNav navValues={nav} />
-
       <Toaster
         position="top-center"
         toastOptions={{
@@ -65,9 +64,8 @@ const CreateJob = () => {
           }
         }}
       />
-
       <section>
-        <div className=" w-full h-[100%] bg-[#112a42]">
+        <div className="mt-20 w-full h-[100%] bg-[#112a42]">
           <div className='title'>
             <h1 className="text-white text-center pt-10 
             text-[20px] font-semibold sm:text-3xl">Add Job</h1>

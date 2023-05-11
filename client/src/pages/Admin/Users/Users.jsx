@@ -44,7 +44,7 @@ const Users = () => {
     <div>
 
       <AdminNav navValues={nav} />
-      <section className='bg-[#112a42]'>
+      <section className='mt-20 bg-[#112a42]'>
         <div className='title w-full text-center '>
           <h1 className='text-[23px] sm:text-[30px] p-6 text-white font-semibold underline'>Users</h1>
         </div>
