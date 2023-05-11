@@ -23,7 +23,7 @@ const LoginAdmin = () => {
       toast.promise(loginPromise, {
         loading: "Checking...",
         success: <b>Login success...!</b>,
-        error: <b>Password Not Match !</b>
+        error: <b>Invalid Email or password !</b>
       });
 
       loginPromise.then((res) => {
@@ -31,7 +31,7 @@ const LoginAdmin = () => {
           let { token } = res.data;
           localStorage.setItem('adminToken', token)
           navigate('/admin/dashboard')
-        }, 2000)
+        }, 1500)
       })
     }
   })

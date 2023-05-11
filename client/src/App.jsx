@@ -16,6 +16,7 @@ import CreateJob from './pages/Admin/CreateJob/CreateJob'
 import CreateAdmin from './pages/Admin/CreateAdmin/CreateAdmin'
 import ViewJobs from './pages/Admin/ViewJobs/ViewJobs'
 import PageNotFound from './pages/PageNotFound';
+import { AuthorizeUser } from './middleware/auth';
 
 
 const router = createBrowserRouter([
@@ -47,27 +48,27 @@ const router = createBrowserRouter([
   },
   {
     path: 'admin/dashboard',
-    element: <Dashboard />
+    element: <AuthorizeUser><Dashboard /></AuthorizeUser>
   },
   {
     path: 'admin/dashboard/users',
-    element: <Users />
+    element: <AuthorizeUser><Users /></AuthorizeUser>
   },
   {
     path: 'admin/dashboard/new-registers',
-    element: <NewRegisters />
+    element: <AuthorizeUser><NewRegisters /></AuthorizeUser>
   },
   {
     path: 'admin/dashboard/new-job',
-    element: <CreateJob />
+    element: <AuthorizeUser><CreateJob /></AuthorizeUser>
   },
   {
     path: 'admin/dashboard/add-admin',
-    element: <CreateAdmin />
+    element: <AuthorizeUser><CreateAdmin /></AuthorizeUser>
   },
   {
     path: 'admin/dashboard/view-jobs',
-    element: <ViewJobs />
+    element: <AuthorizeUser><ViewJobs /></AuthorizeUser>
   },
 
   //** End of admin routes */
@@ -88,3 +89,7 @@ const App = () => {
 }
 
 export default App;
+
+
+
+

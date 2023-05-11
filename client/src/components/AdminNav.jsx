@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Spin as Hamburger } from 'hamburger-react'
-const AdminNav = ({ navValues, z_index }) => {
+
+
+const AdminNav = ({ navValues }) => {
+    const navigate = useNavigate();
     const [toggle, setToggle] = useState(false);
+
+    const adminLogout = async () => {
+        localStorage.removeItem('adminToken');
+        navigate('/admin/login')
+    }
 
     return (
         <nav className='z-10' >
@@ -27,7 +35,7 @@ const AdminNav = ({ navValues, z_index }) => {
                             })
                         }
                         <Link to={'/admin/dashboard/view-jobs'}>View All Jobs</Link>
-                        <Link>Log out</Link>
+                        <Link onClick={adminLogout} >Log out</Link>
                     </ul>
                 </div>}
 
