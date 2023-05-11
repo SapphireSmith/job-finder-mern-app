@@ -39,6 +39,7 @@ const LoginAdmin = () => {
     <div>
       <Toaster
         position="top-center"
+        reverseOrder={false}
         toastOptions={{
           style: {
             minWidth: '200px',

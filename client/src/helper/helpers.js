@@ -8,41 +8,44 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 //** User register function */
 export const userRegister = async (values) => {
    try {
-      const response = await axios.post('user/register', { ...values });
+      const { data: { msg }, status } = await axios.post('user/register', { ...values });
 
       //**Work pending here (Sending email after registration of the user) */;
       // const status = response.status;
       // console.log(status);
       //**Curently closing with returing msg and status code */
-      const msg = response.data.msg;
-      const status = response.status;
-      return { msg, status }
+
+      return Promise.resolve({ msg, status })
    } catch (error) {
-      return {
-         msg: error.response.data.error,
-         status: error.response.status
-      }
+
+      return Promise.reject(
+         {
+            msg: error.response.data.error,
+            status: error.response.status
+         }
+      )
+
    }
 }
 
 //** User Login function */
 export const userLogin = async (values) => {
+
    try {
-      const response = await axios.post('user/login', { ...values });
+      const { data: { msg }, status } = await axios.post('user/login', { ...values });
 
-      const msg = response.data.msg;
-      const status = response.status;
-
-      return { msg, status }
+      return Promise.resolve({ msg, status })
    } catch (error) {
-      return {
-         msg: error.response.data.error,
+
+      return Promise.reject({
+         msg: error.response.data.msg,
          status: error.response.status
-      }
+      })
    }
 }
 
 //** <<------------ END OF USERS HANDLING FUNCTIONS ------------------>> */
+
 
 
 

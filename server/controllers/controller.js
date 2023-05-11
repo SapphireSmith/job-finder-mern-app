@@ -36,7 +36,7 @@ export const userRegister = async (req, res) => {
 
                     user.save()
                         .then((result) => {
-                            res.status(201).send({ msg: "User registered successfully" });
+                            res.status(201).send({ msg: "Account created..." });
                         })
                         .catch((error) => {
                             return res.status(404).send({ error: error.message });
@@ -57,23 +57,21 @@ export const userRegister = async (req, res) => {
 export const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
-
-        //** check for if the email id is registered */
         const user = await UserModel.findOne({ email });
-
-        if (user) {
+        if (user?.status) {
             const passwordCheck = await bcrypt.compare(password, user.password);
             if (!passwordCheck) {
-                return res.status(400).send({ error: "Incorrect password" });
-            } else {
-                return res.status(201).send({
-                    msg: "Login Success.."
-                });
+                console.log('here1');
+                return res.status(400).send({ msg: "Incorrect password" });
             }
-        } else {
-            return res.status(404).send({ error: "Email id not registered" });
+            console.log('here2');
+            return res.status(201).send({ msg: "Login Success.." });
+        } else if (user) {
+            console.log('here3');
+            return res.status(401).send({ msg: "Admin approval pending" });
         }
-
+        console.log('here4');
+        return res.status(404).send({ msg: "Email id not registered" });
     } catch (error) {
         return res.status(500).send({ error });
     }

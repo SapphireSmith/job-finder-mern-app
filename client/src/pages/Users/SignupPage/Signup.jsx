@@ -24,13 +24,25 @@ const Signup = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      const { msg, status } = await userRegister(values);
-      if (status === 201) {
-        toast.success(msg);
-        navigate('/user/login')
-      } else {
-        toast.error(msg)
-      }
+      const userRgisterPromise = userRegister(values);
+
+      toast.promise(userRgisterPromise, {
+        loading: "Creating Account",
+        success: (res) => {
+          console.log(res);
+          return res.msg
+        },
+        error: (res) => {
+          console.log(res);
+          return res.msg
+        }
+      })
+
+      userRgisterPromise.then((res) => {
+        setTimeout(() => {
+          navigate('/user/login')
+        }, 1900)
+      })
     }
   })
 
@@ -47,7 +59,7 @@ const Signup = () => {
             style: {
               minWidth: '200px',
               minHeight: '30px',
-              fontSize: '10px'
+              fontSize: '16px'
             }
           }}></Toaster>
         <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: "1000px" }}>
