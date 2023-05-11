@@ -25,13 +25,14 @@ const LoginAdmin = () => {
         success: <b>Login success...!</b>,
         error: <b>Password Not Match !</b>
       });
-      setTimeout(() => {
-        loginPromise.then((res) => {
+
+      loginPromise.then((res) => {
+        setTimeout(() => {
           let { token } = res.data;
           localStorage.setItem('adminToken', token)
           navigate('/admin/dashboard')
-        })
-      }, 1000)
+        }, 2000)
+      })
     }
   })
   return (
