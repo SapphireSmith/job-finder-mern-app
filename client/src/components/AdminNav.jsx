@@ -26,7 +26,7 @@ const AdminNav = ({ navValues, z_index }) => {
                                 )
                             })
                         }
-                        <Link>View All Jobs</Link>
+                        <Link to={'/admin/dashboard/view-jobs'}>View All Jobs</Link>
                         <Link>Log out</Link>
                     </ul>
                 </div>}

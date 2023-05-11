@@ -10,12 +10,12 @@ const Dashboard = () => {
     <div>
       <AdminNavbar />
       <section>
-        <div className='h-[100%] bg-[#f2f2f2]'>
+        <div className='h-[100%] bg-[#112a42]'>
           <div className='managing-cards cards flex flex-col w-full sm:flex-row sm:flex-wrap sm:justify-around md:px-20'>
 
             <div className='manage-user-card px-14 py-12 flex flex-col min-[480px]:px-20 
               sm:w-[50%] sm:px-10 sm:py-14'>
-              <h3 className='mb-8 font-semibold text-[20px]'>View Users</h3>
+              <h3 className='mb-8 font-semibold text-[20px] text-white'>View Users</h3>
               <Link to={'/admin/dashboard/users'}>
                 <div className='flex users-card  hover:cursor-pointer bg-[#3366f3] p-7 rounded-lg shadow-inner hover:shadow-xl
                     sm:w-[100%] sm:h-[155px] '>
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
             <div className='manage-user-card px-14 pb-12 flex flex-col min-[480px]:px-20
                sm:w-[50%] sm:px-10 sm:py-14'>
-              <h3 className='mb-8 font-semibold text-[20px]'>New Registers</h3>
+              <h3 className='mb-8 font-semibold text-[20px] text-white'>New Registers</h3>
               <Link to={'/admin/dashboard/new-registers'}>
                 <div className='flex users-card  hover:cursor-pointer bg-[#55cf74] p-7 rounded-lg shadow-inner hover:shadow-xl
                    sm:w-[100%] sm:h-[155px]'>
@@ -51,7 +51,7 @@ const Dashboard = () => {
 
             <div className='manage-user-card px-14 pb-12 flex flex-col min-[480px]:px-20
                sm:w-[50%] sm:px-10 sm:py-14 sm:mb-10'>
-              <h3 className='mb-8 font-semibold text-[20px]'>Create New Job Post</h3>
+              <h3 className='mb-8 font-semibold text-[20px] text-white'>Create New Job Post</h3>
               <Link to={'/admin/dashboard/new-job'}>
                 <div className='flex users-card  hover:cursor-pointer bg-[#e06844] p-7 rounded-lg shadow-inner hover:shadow-xl
                 sm:w-[100%] sm:h-[155px]'>
@@ -70,7 +70,7 @@ const Dashboard = () => {
             <div className='manage-user-card px-14 pb-12 flex flex-col min-[480px]:px-20
               sm:w-[50%] sm:px-10 sm:py-14 sm:mb-10[2z
               \'>
-              <h3 className='mb-8 font-semibold text-[20px]'>Add New Admin</h3>
+              <h3 className='mb-8 font-semibold text-[20px]  text-white'>Add New Admin</h3>
               <Link to={'/admin/dashboard/add-admin'}>
                 <div className='flex users-card  hover:cursor-pointer bg-[#42a0ec] p-7 rounded-lg shadow-inner hover:shadow-xl
                 sm:w-[100%] sm:h-[155px]'>

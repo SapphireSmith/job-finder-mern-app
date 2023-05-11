@@ -1,4 +1,5 @@
 import { AdminModel } from "../models/Admin.model.js";
+import { JobModel } from "../models/Jobs.model.js";
 import { UserModel } from "../models/User.model.js";
 import bcrypt from 'bcrypt'
 
@@ -76,6 +77,9 @@ export const userLogin = async (req, res) => {
 
 
 
+
+
+
 //** ADMIN ROUTING FUNCTIONS  */
 
 //** Login function */
@@ -84,20 +88,20 @@ export const adminLogin = async (req, res) => {
         const { email, password } = req.body;
         const admin = await AdminModel.findOne({ email });
 
-        if (!admin) return res.status(404).send({ error: "Invalid admin email id" });
+        if (!admin) {
+            return res.status(401).send({ error: "Invalid admin email id" });
+        }
 
         const passwordCheck = await bcrypt.compare(password, admin.password);
 
-        if (passwordCheck) {
-            return res.status(201).send({ msg: "Login success..." });
-        } else {
-            return res.status(400).send({ error: "Invalid password" });
+        if (!passwordCheck) {
+            return res.status(401).send({ error: "Invalid password" });
         }
 
+        return res.status(200).send({ msg: "Login success..." });
     } catch (error) {
-        console.log(error);
-        console.log(error.message);
-        res.status(500).send({ error })
+        console.error(error);
+        return res.status(500).send({ error: "Internal server error" });
     }
 }
 
@@ -148,7 +152,7 @@ export const rejectUser = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        return res.status(200).json({ message: "User deleted successfully"});
+        return res.status(200).json({ message: "User deleted successfully" });
     } catch (error) {
         return res.status(500).json({ message: "Server error", error: error });
     }
@@ -170,3 +174,25 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
+//** To create job post */
+export const addJob = async (req, res) => {
+    try {
+        console.log('here');
+        const { position, jobLocation, company, jobType, description } = req.body;
+        //   const userId = req.user.id; // assuming user ID is retrieved from authentication middleware
+        const jobPost = new JobModel({
+            position,
+            jobLocation,
+            company,
+            jobType,
+            description,
+            userId: '645a93109d149481386e6fa4',
+            createdTime: Date.now()
+        });
+        const savedJobPost = await jobPost.save();
+        res.status(201).json(savedJobPost);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+}

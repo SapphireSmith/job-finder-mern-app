@@ -52,17 +52,24 @@ export const userLogin = async (values) => {
 //** Admin login function */
 export const adminLogin = async (values) => {
    try {
-
-      const response = await axios.post('admin/login', { ...values });
-
-      const msg = response.data.msg;
-      const status = response.status;
-
+      const { data: { msg }, status } = await axios.post('admin/login', { ...values });
       return { msg, status }
    } catch (error) {
-      return {
-         msg: error.response.data.error,
-         status: error.response.status
+      if (error.response) {
+         return {
+            msg: error.response.data.error,
+            status: error.response.status
+         }
+      } else if (error.request) {
+         return {
+            msg: "Network Error",
+            status: 500
+         }
+      } else {
+         return {
+            msg: "Unknown Error",
+            status: 500
+         }
       }
    }
 }
@@ -114,6 +121,16 @@ export const deleteUser = async (id) => {
    }
 }
 
+export const createJobPost = async (post) => {
+   try {
+      const { data, status } = await axios.post('/admin/add-job-post', { ...post });
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+      return { msg: error.response.data.msg, status: error.response.status }
+   }
+}
+
 //**  <<----------------- END OF ADMIN HANDLING FUNCTIONS ---------------------->> */
 
 
@@ -121,10 +138,3 @@ export const deleteUser = async (id) => {
 
 
 
-//** Helping functions */
-
-export const formatDate = (dateString) => {
-   const date = new Date(dateString);
-   const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
-   return date.toLocaleDateString('en-GB', options);
-}

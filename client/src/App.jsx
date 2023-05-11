@@ -51,30 +51,30 @@ const router = createBrowserRouter([
   },
   {
     path: 'admin/dashboard/users',
-    element:<Users/>
+    element: <Users />
   },
   {
-    path:'admin/dashboard/new-registers',
-    element:<NewRegisters/>
+    path: 'admin/dashboard/new-registers',
+    element: <NewRegisters />
   },
   {
-    path:'admin/dashboard/new-job',
-    element:<CreateJob/>
+    path: 'admin/dashboard/new-job',
+    element: <CreateJob />
   },
   {
-    path:'admin/dashboard/add-admin',
-    element:<CreateAdmin/>
+    path: 'admin/dashboard/add-admin',
+    element: <CreateAdmin />
   },
   {
-    path:'admin/dashboard/view-jobs',
-    element:<ViewJobs/>
+    path: 'admin/dashboard/view-jobs',
+    element: <ViewJobs />
   },
 
   //** End of admin routes */
 
   {
-    path:'*',
-    element:<PageNotFound/>
+    path: '*',
+    element: <PageNotFound />
   }
 ])
 

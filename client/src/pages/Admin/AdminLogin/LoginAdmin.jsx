@@ -20,8 +20,7 @@ const LoginAdmin = () => {
     onSubmit: async (values) => {
       const { msg, status } = await adminLogin(values);
 
-      if (status === 201) {
-        toast.success(msg)
+      if (status === 200) {
         navigate('/admin/dashboard')
       } else {
         toast.error(msg)

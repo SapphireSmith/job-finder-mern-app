@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AdminNav from '../../../components/AdminNav'
-import { formatDate, getAllUsers } from '../../../helper/helpers'
+import { getAllUsers } from '../../../helper/helpers'
+import { formatDate } from '../../../helper/convert';
 
 const Users = () => {
 
@@ -43,12 +44,12 @@ const Users = () => {
     <div>
 
       <AdminNav navValues={nav} />
-      <section>
-        <div className='title w-full text-center  bg-[#555555]'>
-          <h1 className='text-[23px] sm:text-[30px] p-6 text-white font-semibold'>Users</h1>
+      <section className='bg-[#112a42]'>
+        <div className='title w-full text-center '>
+          <h1 className='text-[23px] sm:text-[30px] p-6 text-white font-semibold underline'>Users</h1>
         </div>
 
-        <div className="relative overflow-x-auto h-[100vh] bg-[#555555] ">
+        <div className="relative overflow-x-auto h-[100vh] md:p-4">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>

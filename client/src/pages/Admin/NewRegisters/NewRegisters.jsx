@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import AdminNav from '../../../components/AdminNav'
-import { deleteUser, formatDate, getNewRegisters, statusUpdate } from '../../../helper/helpers'
+import { deleteUser, getNewRegisters, statusUpdate } from '../../../helper/helpers'
+import { formatDate } from '../../../helper/convert';
 
 const NewRegisters = () => {
 
@@ -59,10 +60,10 @@ const NewRegisters = () => {
   return (
     <div>
       <AdminNav navValues={nav} />
-      <section>
-        <div className='new-registers bg-[#555555] w-full h-[100vh] md:h-[100vh] pb-8'>
+      <section className='bg-[#112a42]'>
+        <div className='new-registers  w-full h-[100vh] md:h-[100vh] pb-8'>
           <div className='title uppercase text-center text-[25px] font-medium  text-white p-6'>
-            <h3>New Registers</h3>
+            <h3 className='underline'>New Registers</h3>
           </div>
           {/* new-registers-card */}
           {
@@ -96,7 +97,7 @@ const NewRegisters = () => {
                   </div>
                 </div>
               )
-            }) : <div className='bg-[#555555]  text-center text-white h-[80vh]'>
+            }) : <div className='  text-center text-white h-[80vh]'>
               <h3>No new Registers</h3>
             </div>
           }
