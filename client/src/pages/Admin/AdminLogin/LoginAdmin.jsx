@@ -4,7 +4,7 @@ import adminLoginBackdrop from '../../../assets/adminLoginBackdrop.jpg'
 import { useFormik } from 'formik'
 import { adminLogin } from '../../../helper/helpers'
 import { Toaster, toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const LoginAdmin = () => {
 
@@ -18,13 +18,20 @@ const LoginAdmin = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      const { msg, status } = await adminLogin(values);
+      let loginPromise = adminLogin(values);
 
-      if (status === 200) {
-        navigate('/admin/dashboard')
-      } else {
-        toast.error(msg)
-      }
+      toast.promise(loginPromise, {
+        loading: "Checking...",
+        success: <b>Login success...!</b>,
+        error: <b>Password Not Match !</b>
+      });
+      setTimeout(() => {
+        loginPromise.then((res) => {
+          let { token } = res.data;
+          localStorage.setItem('adminToken', token)
+          navigate('/admin/dashboard')
+        })
+      }, 1000)
     }
   })
   return (

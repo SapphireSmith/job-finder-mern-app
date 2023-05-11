@@ -52,25 +52,10 @@ export const userLogin = async (values) => {
 //** Admin login function */
 export const adminLogin = async (values) => {
    try {
-      const { data: { msg }, status } = await axios.post('admin/login', { ...values });
-      return { msg, status }
+      const { data } = await axios.post('admin/login', { ...values });
+      return Promise.resolve({ data })
    } catch (error) {
-      if (error.response) {
-         return {
-            msg: error.response.data.error,
-            status: error.response.status
-         }
-      } else if (error.request) {
-         return {
-            msg: "Network Error",
-            status: 500
-         }
-      } else {
-         return {
-            msg: "Unknown Error",
-            status: 500
-         }
-      }
+      return Promise.reject({ error: "Password doesn't Match..!" });
    }
 }
 

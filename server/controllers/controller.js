@@ -1,8 +1,12 @@
 import { AdminModel } from "../models/Admin.model.js";
 import { JobModel } from "../models/Jobs.model.js";
 import { UserModel } from "../models/User.model.js";
+import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import dotenv from 'dotenv';
+dotenv.config();
 
+const JWT_SECRET = process.env.JWT_SECRET
 
 //** USER ROUTING FUNCTIONS */
 
@@ -98,7 +102,17 @@ export const adminLogin = async (req, res) => {
             return res.status(401).send({ error: "Invalid password" });
         }
 
-        return res.status(200).send({ msg: "Login success..." });
+        //Create JWT token
+        const token = jwt.sign({
+            adminId: admin._id,
+        }, JWT_SECRET, { expiresIn: '1hr' });
+
+        return res.status(200).send({
+            msg: "Login success...",
+            token
+        });
+
+
     } catch (error) {
         console.error(error);
         return res.status(500).send({ error: "Internal server error" });
@@ -177,7 +191,6 @@ export const getAllUsers = async (req, res) => {
 //** To create job post */
 export const addJob = async (req, res) => {
     try {
-        console.log('here');
         const { position, jobLocation, company, jobType, description } = req.body;
         //   const userId = req.user.id; // assuming user ID is retrieved from authentication middleware
         const jobPost = new JobModel({

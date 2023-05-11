@@ -5,6 +5,26 @@ import { createJobPost } from '../../../helper/helpers'
 import { Toaster, toast } from 'react-hot-toast'
 
 
+const nav = [
+  {
+    id: 1,
+    title: 'New Registers',
+    path: '/admin/dashboard/new-registers'
+  },
+  {
+    id: 2,
+    title: 'View Users',
+    path: '/admin/dashboard/users'
+  },
+  {
+    id: 3,
+    title: 'Create new Admin',
+    path: '/admin/dashboard/add-admin'
+  }
+
+]
+
+
 //is this correct will it log when i fill all the inputfields
 const CreateJob = () => {
 
@@ -22,30 +42,13 @@ const CreateJob = () => {
       const { data, status } = await createJobPost(values);
       if (status === 201) {
         toast.success("Created Successfully")
+        formik.resetForm();
       } else {
         toast.error("Can't post Please try again later");
       }
     }
   })
 
-  const nav = [
-    {
-      id: 1,
-      title: 'New Registers',
-      path: '/admin/dashboard/new-registers'
-    },
-    {
-      id: 2,
-      title: 'View Users',
-      path: '/admin/dashboard/users'
-    },
-    {
-      id: 3,
-      title: 'Create new Admin',
-      path: '/admin/dashboard/add-admin'
-    }
-
-  ]
 
   return (
     <div>
