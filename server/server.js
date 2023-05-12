@@ -7,14 +7,15 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 dotenv.config();
 
-
 const app = express();
 
-app.use(cors())
-app.use(bodyParser.json())
-app.use(morgan('tiny'))
-app.disable('x-power-by')
-app.use('/', routes)
+app.use(cors({
+  origin: 'https://job-finder-client.onrender.com'
+}));
+app.use(bodyParser.json());
+app.use(morgan('tiny'));
+app.disable('x-powered-by');
+app.use('/', routes);
 
 const PORT = process.env.PORT;
 
@@ -26,4 +27,3 @@ connectDb().then(() => {
     console.log(error);
     console.log("Could not connect to the database");
 })
-

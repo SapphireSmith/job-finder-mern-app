@@ -61,16 +61,12 @@ export const userLogin = async (req, res) => {
         if (user?.status) {
             const passwordCheck = await bcrypt.compare(password, user.password);
             if (!passwordCheck) {
-                console.log('here1');
                 return res.status(400).send({ msg: "Incorrect password" });
             }
-            console.log('here2');
             return res.status(201).send({ msg: "Login Success.." });
         } else if (user) {
-            console.log('here3');
             return res.status(401).send({ msg: "Admin approval pending" });
         }
-        console.log('here4');
         return res.status(404).send({ msg: "Email id not registered" });
     } catch (error) {
         return res.status(500).send({ error });
