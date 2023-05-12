@@ -24,7 +24,6 @@ const Login = () => {
         loading: "Checking...",
         success: <b>Login success...!</b>,
         error: (res) => {
-          console.log(res.msg);
           return res.msg
         }
       })

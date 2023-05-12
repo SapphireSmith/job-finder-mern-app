@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: 'https://job-finder-client.onrender.com'
+  origin: ['https://job-finder-client.onrender.com','http://localhost:5173']
 }));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
