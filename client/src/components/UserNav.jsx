@@ -1,20 +1,50 @@
-import React from 'react'
-import Logo from '../assets/logo.svg'
-import { Spin as Hamburger } from 'hamburger-react'
+import React from 'react';
+import Logo from '../assets/logo.svg';
+import { Spin as Hamburger } from 'hamburger-react';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const UserNav = () => {
     return (
-        <nav>
-            <div className='w-full bg-[#112a42] flex flex-row justify-between px-3 py-3 items-center'>
+        <nav className='z-50 fixed top-0 w-full'>
+            <div className='w-full bg-[#112a42] flex flex-row justify-between px-3 py-3 items-center
+         min-[500px]:p-9 sm:px-20'>
                 <div className='logo'>
-                    <img src={Logo} alt="" className=' w-[160px] ' />
+                    <Link to={'/Home'}>
+                        <img src={Logo} alt="" className=' w-[160px] ' />
+                    </Link>
                 </div>
-                <div >
+                <div className='md:hidden' >
                     <Hamburger color='white' size={23} />
+                </div>
+                <div className='hidden md:block'>
+                    <div className='flex gap-10 items-center justify-center'>
+                        <div className='hidden md:block'>
+                            <div className='nav-links'>
+                                <ul className='text-white flex gap-4 '>
+                                    <li><Link to={'/add-job'}>Add Jobs</Link></li>
+                                    <li><Link to={'/saved-jobs'}>Saved Jobs</Link></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className='hidden md:block pr-14'>
+                            <Link to={'/profile'}>
+                                <div className='flex justify-around items-center profile h-7 w-28 bg-blue-500 rounded-sm'>
+                                    <div className='user-icon px-2 py-1 w-1/3'>
+                                        <FontAwesomeIcon icon={faUser} color='#ffff' />
+                                    </div>
+                                    <div className='user-name w-2/3'>
+                                        <p className='text-white text-sm font-thin truncate '>Sapphire  </p>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
-    )
+    );
 }
 
-export default UserNav
+export default UserNav;
