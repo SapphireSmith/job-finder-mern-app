@@ -32,15 +32,36 @@ export const userRegister = async (values) => {
 export const userLogin = async (values) => {
 
    try {
-      const { data: { msg }, status } = await axios.post('user/login', { ...values });
-
-      return Promise.resolve({ msg, status })
+      const { data } = await axios.post('user/login', { ...values });
+      return Promise.resolve({ data })
    } catch (error) {
 
       return Promise.reject({
          msg: error.response.data.msg,
          status: error.response.status
       })
+   }
+}
+
+//** Get all jobs function */
+export const getJobPosts = async () => {
+   try {
+      const { data } = await axios.get('user/job-posts');
+      return { data };
+   } catch (error) {
+      console.log(error);
+      return { error: "Some error occured please refresh the page..." }
+   }
+}
+
+//** Post new job */
+export const postJobs = async (post) => {
+   try {
+      const { data, status } = await axios.post('/user/add-job-post', { ...post });
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+      return { msg: error.response.data.msg, status: error.response.status }
    }
 }
 

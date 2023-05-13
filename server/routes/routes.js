@@ -7,7 +7,8 @@ import {
     StatusUpdate,
     getAllUsers,
     rejectUser,
-    addJob
+    addJob,
+    getJobs
 } from '../controllers/controller.js';
 
 const router = express.Router();
@@ -17,6 +18,10 @@ const router = express.Router();
 //** POST REQUESTS  */
 router.post('/user/register', userRegister);
 router.post('/user/login', userLogin);
+router.post('/user/add-job-post', addJob);
+
+//** GET REQUESTS */
+router.get('/user/job-posts', getJobs);
 
 //**END OF USERS ROUTES */
 

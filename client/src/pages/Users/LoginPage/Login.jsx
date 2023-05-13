@@ -30,8 +30,9 @@ const Login = () => {
 
       UserLoginPending.then((res) => {
         setTimeout(() => {
-          // let { token } = res.data;
-          // localStorage.setItem('adminToken', token)
+          console.log(res);
+          let { token } = res.data;
+          localStorage.setItem('userToken', token)
           navigate('/home')
         }, 1500)
       })
@@ -42,17 +43,17 @@ const Login = () => {
       <main
         className={`flex flex-col items-center justify-center w-screen h-screen bg-cover bg-no-repeat bg-center`}
         style={{ backgroundImage: `url(${backdrop})` }}>
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        toastOptions={{
-          style: {
-            minWidth: '200px',
-            minHeight: '30px',
-            fontSize: '16px'
-          }
-        }}
-      />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{
+            style: {
+              minWidth: '200px',
+              minHeight: '30px',
+              fontSize: '16px'
+            }
+          }}
+        />
 
         {/* Component Start */}
         <h1 className="font-bold text-2xl">Welcome Back :)</h1>

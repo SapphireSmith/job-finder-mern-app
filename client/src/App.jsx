@@ -22,7 +22,7 @@ import CreateAdmin from './pages/Admin/CreateAdmin/CreateAdmin'
 import ViewJobs from './pages/Admin/ViewJobs/ViewJobs'
 
 //** Middlewares */
-import { AuthorizeUser } from './middleware/auth';
+import { AuthorizeAdmin, AuthorizeUser } from './middleware/auth';
 
 
 
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     element: <Landing />
   },
   {
-    path: 'user/login',
+    path: '/user/login',
     element: <Login />
   },
   {
@@ -43,19 +43,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Home />
+    element: <AuthorizeUser><Home /></AuthorizeUser>
   },
   {
     path: '/add-job',
-    element: <AddJob />
+    element: <AuthorizeUser><AddJob /></AuthorizeUser>
   },
   {
     path: '/saved-jobs',
-    element: <SavedJobs />
+    element: <AuthorizeUser><SavedJobs /></AuthorizeUser>
   },
   {
     path: '/profile',
-    element: <Profile />
+    element: <AuthorizeUser><Profile /></AuthorizeUser>
   },
 
   //** End of user routes */
@@ -68,27 +68,27 @@ const router = createBrowserRouter([
   },
   {
     path: 'admin/dashboard',
-    element: <AuthorizeUser><Dashboard /></AuthorizeUser>
+    element: <AuthorizeAdmin><Dashboard /></AuthorizeAdmin>
   },
   {
     path: 'admin/dashboard/users',
-    element: <AuthorizeUser><Users /></AuthorizeUser>
+    element: <AuthorizeAdmin><Users /></AuthorizeAdmin>
   },
   {
     path: 'admin/dashboard/new-registers',
-    element: <AuthorizeUser><NewRegisters /></AuthorizeUser>
+    element: <AuthorizeAdmin><NewRegisters /></AuthorizeAdmin>
   },
   {
     path: 'admin/dashboard/new-job',
-    element: <AuthorizeUser><CreateJob /></AuthorizeUser>
+    element: <AuthorizeAdmin><CreateJob /></AuthorizeAdmin>
   },
   {
     path: 'admin/dashboard/add-admin',
-    element: <AuthorizeUser><CreateAdmin /></AuthorizeUser>
+    element: <AuthorizeAdmin><CreateAdmin /></AuthorizeAdmin>
   },
   {
     path: 'admin/dashboard/view-jobs',
-    element: <AuthorizeUser><ViewJobs /></AuthorizeUser>
+    element: <AuthorizeAdmin><ViewJobs /></AuthorizeAdmin>
   },
 
   //** End of admin routes */

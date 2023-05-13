@@ -63,11 +63,34 @@ export const userLogin = async (req, res) => {
             if (!passwordCheck) {
                 return res.status(400).send({ msg: "Incorrect password" });
             }
-            return res.status(201).send({ msg: "Login Success.." });
+            //Create JWT token
+            const token = jwt.sign({
+                userId: user._id,
+            }, JWT_SECRET, { expiresIn: '1hr' });
+
+            return res.status(200).send({
+                msg: "Login success...",
+                token
+            });
         } else if (user) {
             return res.status(401).send({ msg: "Admin approval pending" });
         }
         return res.status(404).send({ msg: "Email id not registered" });
+    } catch (error) {
+        return res.status(500).send({ error });
+    }
+}
+
+//** To get all jobs */
+export const getJobs = async (req, res) => {
+    try {
+        const allJobs = await JobModel.find();
+        if (allJobs.length === 0) {
+            return res.status(404).send({ msg: "No Job Posts" })
+        } else {
+            return res.status(201).send(allJobs)
+        }
+
     } catch (error) {
         return res.status(500).send({ error });
     }

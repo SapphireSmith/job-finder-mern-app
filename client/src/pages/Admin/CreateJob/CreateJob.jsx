@@ -100,7 +100,7 @@ const CreateJob = () => {
                   <textarea {...formik.getFieldProps('description')} type="text" className='px-4 p-2 font-light text-black text-[20px] rounded-md placeholder:px-2' placeholder='Description' required />
                 </div>
                 <div className='p-1 my-2 rounded-md text-center text-white bg-[#436fff] '>
-                  <button className='font-normal' type='submit' >Submit</button>
+                  <button className='font-normal w-full' type='submit' >Submit</button>
 
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from '../assets/logo.svg';
 import { Spin as Hamburger } from 'hamburger-react';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const UserNav = () => {
+
+    const [toggle, setToggle] = useState(false);
+
     return (
         <nav className='z-50 fixed top-0 w-full'>
             <div className='w-full bg-[#112a42] flex flex-row justify-between px-3 py-3 items-center
@@ -15,9 +18,30 @@ const UserNav = () => {
                         <img src={Logo} alt="" className=' w-[160px] ' />
                     </Link>
                 </div>
-                <div className='md:hidden' >
+                <div className='md:hidden' onClick={() => {
+                    setToggle(!toggle)
+                }} >
                     <Hamburger color='white' size={23} />
                 </div>
+                {
+                    toggle && <div className='md:hidden hamburger-values absolute right-[3rem] top-[5rem] sm:right-[7rem] sm:top-[6rem] '>
+                        <ul className=' text-white bg-blue-900 flex flex-col gap-5 px-7 py-9 rounded-lg font-extralight'>
+                            <li><Link to={'/add-job'}>Add Jobs</Link></li>
+                            <li><Link to={'/saved-jobs'}>Saved Jobs</Link></li>
+                            <li>
+                                <div className='flex justify-around items-center profile h-7 w-28 bg-blue-500 rounded-lg'>
+                                    <div className='user-icon px-2 py-1 w-1/3'>
+                                        <FontAwesomeIcon icon={faUser} color='#ffff' />
+                                    </div>
+                                    <div className='user-name w-2/3'>
+                                        <p className='text-white text-sm font-thin truncate '>Sapphire</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                }
                 <div className='hidden md:block'>
                     <div className='flex gap-10 items-center justify-center'>
                         <div className='hidden md:block'>
