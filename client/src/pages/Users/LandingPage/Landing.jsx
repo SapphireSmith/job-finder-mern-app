@@ -45,11 +45,13 @@ const Landing = () => {
                 Job <span className='text-[#2cb1bc]'>Finder</span> App
               </h1>
               <p className='text-white mt-8 font-extralight mr-7'>
-                Welcome to our job finder app, the ultimate solution for job seekers and employers alike.
-                Our app is designed to simplify the job search process and connect job seekers with the best
-                possible opportunities. Whether you're looking for your first job, a new challenge, or a career
-                change, our app makes it easy to find and apply for jobs that match your skills, experience, and
-                preferences.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultrices ex nec libero
+                vulputate tincidunt. Nulla vel neque vestibulum, faucibus mi sed, sollicitudin nisl.
+                Integer tincidunt, enim non blandit euismod, odio enim congue lectus, vel commodo m
+                i libero nec ante. Donec ornare augue quam, sed gravida nisl auctor eget. Sed euismo
+                d hendrerit massa, sed aliquet urna lacinia eget. Mauris facilisis eros sit amet neq
+                ue posuere, in sagittis ex efficitur. Aenean eu leo est. Suspendisse potenti. Donec
+                at erat vel sa
               </p>
             </div>
 
