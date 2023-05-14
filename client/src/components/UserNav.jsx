@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import Logo from '../assets/logo.svg';
 import { Spin as Hamburger } from 'hamburger-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 const UserNav = () => {
 
     const [toggle, setToggle] = useState(false);
+    const navigate = useNavigate();
+
+
+    const userLogOut = () => {
+        localStorage.removeItem('userToken');
+        navigate('/user/login');
+    }
 
     return (
         <nav className='z-50 fixed top-0 w-full'>
@@ -38,12 +45,12 @@ const UserNav = () => {
                                     </div>
                                 </div>
                             </li>
-
+                            <li><Link onClick={userLogOut}>Log out</Link></li>
                         </ul>
                     </div>
                 }
                 <div className='hidden md:block'>
-                    <div className='flex gap-10 items-center justify-center'>
+                    <div className='flex md:gap-5 lg:gap-10 items-center justify-center'>
                         <div className='hidden md:block'>
                             <div className='nav-links'>
                                 <ul className='text-white flex gap-4 '>
@@ -52,7 +59,7 @@ const UserNav = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className='hidden md:block pr-14'>
+                        <div className='hidden md:block'>
                             <Link to={'/profile'}>
                                 <div className='flex justify-around items-center profile h-7 w-28 bg-blue-500 rounded-sm'>
                                     <div className='user-icon px-2 py-1 w-1/3'>
@@ -63,6 +70,13 @@ const UserNav = () => {
                                     </div>
                                 </div>
                             </Link>
+                        </div>
+                        <div className='hidden md:block'>
+                            <div className='nav-links'>
+                                <ul className='text-white flex gap-4 '>
+                                    <li><Link onClick={userLogOut}>Log out</Link></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

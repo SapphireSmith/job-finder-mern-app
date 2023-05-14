@@ -3,9 +3,10 @@ import UserNav from '../../../components/UserNav'
 import { postJobs } from '../../../helper/helpers'
 import { useFormik } from 'formik'
 import { Toaster, toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const AddJob = () => {
-
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             position: '',
@@ -20,6 +21,7 @@ const AddJob = () => {
             const { data, status } = await postJobs(values);
             if (status === 201) {
                 toast.success("Created Successfully")
+                navigate('/home')
                 formik.resetForm();
             } else {
                 toast.error("Can't post Please try again later");

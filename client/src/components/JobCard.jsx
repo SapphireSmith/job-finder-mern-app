@@ -36,6 +36,17 @@ const JobCard = ({ post }) => {
         }
     };
 
+    console.log(post);
+    console.log(bookmarkUpdate);
+
+    const placelogo = (id) => {
+       if ( bookmarkUpdate && bookmarkUpdate.some(post => post._id === id)) {
+            return true
+        }
+
+        return false
+    }
+
 
     return (
         <>
@@ -68,13 +79,28 @@ const JobCard = ({ post }) => {
                                 </div>
                                 <div className='flex justify-between p-4 gap-4 items-center'>
                                     <div className='bookmark flex flex-col font-light '>
-                                        <FontAwesomeIcon
+                                        {/* <FontAwesomeIcon
                                             icon={faBookmark}
                                             color="#FFA500"
                                             size="lg"
                                             onClick={() => toggleBookmark(job._id)}
                                             className='hover:cursor-pointer'
-                                        />
+                                        /> */}
+                                        {
+                                            bookmarkUpdate &&  placelogo(job._id) ? <FontAwesomeIcon
+                                                icon={faBookmark}
+                                                color="#FFA500"
+                                                size="lg"
+                                                onClick={() => toggleBookmark(job._id)}
+                                                className='hover:cursor-pointer'
+                                            /> : <FontAwesomeIcon
+                                                icon={faBookmark}
+                                                color="#cccccc"
+                                                size="lg"
+                                                onClick={() => toggleBookmark(job._id)}
+                                                className='hover:cursor-pointer'
+                                            />
+                                        }
 
                                         {/* how to rerender the p tag only */}
                                         <p className='text-center text-[13px] text-[#3d3c3c] font-medium mt-1'>
