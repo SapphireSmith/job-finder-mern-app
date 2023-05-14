@@ -8,8 +8,13 @@ import {
     getAllUsers,
     rejectUser,
     addJob,
-    getJobs
+    getJobs,
+    saveJobPost,
+    getSavedPost,
+    removeSavedPost
 } from '../controllers/controller.js';
+import { auth } from '../middleware/auth.js';
+
 
 const router = express.Router();
 
@@ -19,9 +24,12 @@ const router = express.Router();
 router.post('/user/register', userRegister);
 router.post('/user/login', userLogin);
 router.post('/user/add-job-post', addJob);
+router.post('/user/save-post', auth, saveJobPost);
+router.post('/user/remove-saved-post/:postId', auth, removeSavedPost);
 
 //** GET REQUESTS */
 router.get('/user/job-posts', getJobs);
+router.get('/user/get-saved-post', auth, getSavedPost)
 
 //**END OF USERS ROUTES */
 

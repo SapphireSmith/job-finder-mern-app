@@ -65,6 +65,43 @@ export const postJobs = async (post) => {
    }
 }
 
+//** Save job post fuction  */
+export const saveJobPost = async (postId) => {
+   try {
+      const token = localStorage.getItem('userToken')
+      const { data, status } = await axios.post('/user/save-post', { postId }, { headers: { "Authorization": `${token}` } });
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+
+   }
+}
+
+//** collects all saved post from the db */
+export const getSavedPost = async () => {
+   try {
+      const token = localStorage.getItem('userToken')
+      const { data, status } = await axios.get('/user/get-saved-post', { headers: { "Authorization": `${token}` } })
+
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+      return { error }
+   }
+}
+
+//** remove a saved Post  */
+export const removeSavedPost = async (postId) => {
+   try {
+      const token = localStorage.getItem('userToken');
+      const { data, status } = await axios.post(`/user/remove-saved-post/${postId}`, null, { headers: { "Authorization": `${token}` } });
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+      return { error }
+   }
+}
+
 //** <<------------ END OF USERS HANDLING FUNCTIONS ------------------>> */
 
 

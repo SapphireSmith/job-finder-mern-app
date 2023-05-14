@@ -4,6 +4,7 @@ import { UserModel } from "../models/User.model.js";
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv';
+import { SavedPostModel } from "../models/SavedJobs.model.js";
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET
@@ -66,7 +67,7 @@ export const userLogin = async (req, res) => {
             //Create JWT token
             const token = jwt.sign({
                 userId: user._id,
-            }, JWT_SECRET, { expiresIn: '1hr' });
+            }, JWT_SECRET, { expiresIn: '8hr' });
 
             return res.status(200).send({
                 msg: "Login success...",
@@ -96,6 +97,88 @@ export const getJobs = async (req, res) => {
     }
 }
 
+//** Get saved post */
+export const getSavedPost = async (req, res) => {
+    try {
+        const { userId } = req.user;
+
+        if (!userId) {
+            return res.status(400).json({ message: 'User id not found' });
+        }
+
+        const savedPost = await SavedPostModel.findOne({ userId })
+            .populate('savedPosts');
+
+        if (!savedPost) {
+            return res.status(404).json({ message: 'Saved posts not found' });
+        }
+
+        return res.status(200).json({ savedPosts: savedPost.savedPosts });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+//** Function for saving post */
+export const saveJobPost = async (req, res) => {
+    try {
+        const { userId } = req.user;
+        if (userId) {
+            const { postId } = req.body;
+            const savedPost = await SavedPostModel.findOne({ userId });
+            if (!savedPost) {
+                const newSavedPost = new SavedPostModel({
+                    userId,
+                    savedPosts: [postId],
+                });
+                await newSavedPost.save();
+                return res.status(200).send({ message: "Post saved successfully" });
+            } else {
+                const { savedPosts } = savedPost;
+                if (!savedPosts.includes(postId)) {
+                    savedPosts.push(postId);
+                    await savedPost.save();
+                    return res.status(200).send({ message: "Post saved successfully" });
+                } else {
+                    return res.status(400).send({ message: "Post already saved" });
+                }
+            }
+        } else {
+            return res.status(401).send({ message: "Unauthorized" });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ error });
+    }
+};
+
+//** Function for deleting saved post */
+export const removeSavedPost = async (req, res) => {
+    const { postId } = req.params;
+    const { userId } = req.user;
+    console.log(userId, postId);
+
+    try {
+        const savedPost = await SavedPostModel.findOne({ userId });
+        if (!savedPost) {
+            return res.status(404).json({ message: 'Saved post not found' });
+        }
+
+        const updatedSavedPosts = savedPost.savedPosts.filter(
+            (id) => id.toString() !== postId
+        );
+
+        savedPost.savedPosts = updatedSavedPosts;
+        await savedPost.save();
+
+        res.status(200).json({ message: 'Saved post removed successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 
 
 
@@ -122,7 +205,7 @@ export const adminLogin = async (req, res) => {
         //Create JWT token
         const token = jwt.sign({
             adminId: admin._id,
-        }, JWT_SECRET, { expiresIn: '1hr' });
+        }, JWT_SECRET, { expiresIn: '4hr' });
 
         return res.status(200).send({
             msg: "Login success...",
