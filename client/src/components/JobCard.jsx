@@ -21,7 +21,7 @@ const JobCard = ({ post }) => {
 
     const toggleBookmark = async (postId) => {
 
-        if (bookmarkUpdate.some(post => post._id === postId)) {
+        if (bookmarkUpdate && bookmarkUpdate.some(post => post._id === postId)) {
             const { data, status } = await removeSavedPost(postId);
             console.log(data);
             if (status === 200) {
@@ -30,8 +30,12 @@ const JobCard = ({ post }) => {
             }
         } else {
             const data = await saveJobPost(postId)
-            console.log(data);
-            setBookmarkUpdate([...bookmarkUpdate, { _id: postId }]);
+            if (bookmarkUpdate) {
+                 setBookmarkUpdate([...bookmarkUpdate, { _id: postId }])
+            }else{
+                setBookmarkUpdate([ { _id: postId }])
+            }
+            
             setrefresh(false)
         }
     };

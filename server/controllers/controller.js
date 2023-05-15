@@ -136,7 +136,7 @@ export const getSavedPost = async (req, res) => {
             .populate('savedPosts');
 
         if (!savedPost) {
-            return res.status(404).json({ message: 'Saved posts not found' });
+            return res.status(200).json({ message: 'Saved posts not found' });
         }
 
         return res.status(200).json({ savedPosts: savedPost.savedPosts });
