@@ -10,6 +10,7 @@ const JobCard = ({ post }) => {
     const [bookmarkUpdate, setBookmarkUpdate] = useState()
     const [refresh, setrefresh] = useState(false)
 
+
     useEffect(() => {
         const fetchUpdatedPost = async () => {
             let savedPost = await getSavedPost();
@@ -23,7 +24,6 @@ const JobCard = ({ post }) => {
 
         if (bookmarkUpdate && bookmarkUpdate.some(post => post._id === postId)) {
             const { data, status } = await removeSavedPost(postId);
-            console.log(data);
             if (status === 200) {
                 setrefresh(true)
                 setBookmarkUpdate(bookmarkUpdate.filter(post => post._id !== postId))
@@ -31,20 +31,16 @@ const JobCard = ({ post }) => {
         } else {
             const data = await saveJobPost(postId)
             if (bookmarkUpdate) {
-                 setBookmarkUpdate([...bookmarkUpdate, { _id: postId }])
-            }else{
-                setBookmarkUpdate([ { _id: postId }])
+                setBookmarkUpdate([...bookmarkUpdate, { _id: postId }])
+            } else {
+                setBookmarkUpdate([{ _id: postId }])
             }
-            
             setrefresh(false)
         }
     };
 
-    console.log(post);
-    console.log(bookmarkUpdate);
-
     const placelogo = (id) => {
-       if ( bookmarkUpdate && bookmarkUpdate.some(post => post._id === id)) {
+        if (bookmarkUpdate && bookmarkUpdate.some(post => post._id === id)) {
             return true
         }
 
@@ -54,8 +50,6 @@ const JobCard = ({ post }) => {
 
     return (
         <>
-
-
             <div className='job-cards pt-5 px-6 flex flex-col gap-7  md:flex-row md:w-[100%] md:flex-wrap md:items-center md:justify-center'>
 
                 {
@@ -91,7 +85,7 @@ const JobCard = ({ post }) => {
                                             className='hover:cursor-pointer'
                                         /> */}
                                         {
-                                            bookmarkUpdate &&  placelogo(job._id) ? <FontAwesomeIcon
+                                            bookmarkUpdate && placelogo(job._id) ? <FontAwesomeIcon
                                                 icon={faBookmark}
                                                 color="#FFA500"
                                                 size="lg"

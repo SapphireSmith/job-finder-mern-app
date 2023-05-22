@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-const UserNav = () => {
+const UserNav = ({ username }) => {
 
     const [toggle, setToggle] = useState(false);
     const navigate = useNavigate();
@@ -15,6 +15,7 @@ const UserNav = () => {
         localStorage.removeItem('userToken');
         navigate('/user/login');
     }
+    
 
     return (
         <nav className='z-50 fixed top-0 w-full'>
@@ -41,7 +42,7 @@ const UserNav = () => {
                                         <FontAwesomeIcon icon={faUser} color='#ffff' />
                                     </div>
                                     <div className='user-name w-2/3'>
-                                        <p className='text-white text-sm font-thin truncate '>Sapphire</p>
+                                        <p className='text-white text-sm font-thin truncate '>{username || 'Hello'}</p>
                                     </div>
                                 </div>
                             </li>
@@ -66,7 +67,7 @@ const UserNav = () => {
                                         <FontAwesomeIcon icon={faUser} color='#ffff' />
                                     </div>
                                     <div className='user-name w-2/3'>
-                                        <p className='text-white text-sm font-thin truncate '>Sapphire  </p>
+                                        <p className='text-white text-sm font-thin truncate '>{username || 'Hello'}</p>
                                     </div>
                                 </div>
                             </Link>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import UserNav from '../../../components/UserNav'
-import { getJobPosts} from '../../../helper/helpers'
+import { getJobPosts } from '../../../helper/helpers'
 import JobCard from '../../../components/JobCard'
+import jwtDecode from "jwt-decode";
 
 
 
@@ -9,20 +10,41 @@ const Home = () => {
 
     const [post, setPost] = useState();
     const [postCount, setPostCount] = useState();
+    const [username, setUsername] = useState();
+    const [filteredList, setFilteredList] = useState();
+    const [query,setQuery] = useState()
 
+    const fethPost = async () => {
+        const token = localStorage.getItem('userToken');
+        const payload = jwtDecode(token)
+        setUsername(payload.username)
+        let { data } = await getJobPosts();
+        setPost(data);
+        setFilteredList(data)
+        setPostCount(data.length)
+    }
     useEffect(() => {
-        const fethPost = async () => {
-            let { data } = await getJobPosts();
-            setPostCount(data.length)
-            setPost(data);
-        }
         fethPost()
     }, [])
 
+    const filterBySearch = async (event) => {
+        const query = event.target.value;
+        var updatedList = [...post];
+        updatedList = updatedList.filter((item) => {
+            return item.position.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+        })
+        setFilteredList(updatedList);
+        setPostCount(updatedList.length)
+    }
+    const clearForm = (e) => {
+        e.preventDefault()
+        setQuery('')
+        fethPost()
+    }
 
     return (
         <div>
-            <UserNav />
+            <UserNav username={username} />
             <section>
 
                 <div className='bg-[#02203c] h-screen overflow-auto w-full pt-20 '>
@@ -32,36 +54,17 @@ const Home = () => {
                         </div>
                         <div className='jobs-listing-menu'>
                             <form className='pt-3 px-6'>
-                                <div className='flex flex-col gap-3'>
-                                    <div className='input-search flex flex-col gap-1'>
+                                <div className='flex flex-row gap-3 w-full sm:w-1/2'>
+                                    <div className='input-search flex flex-col sm:w-3/4 w-3/4 '>
                                         <label className='text-white font-medium'>Search</label>
                                         <input type='text' placeholder='Search Jobs' className='px-3 p-1 rounded-md font-medium text-[#190505]
-                                         focus:outline-none' />
+                                         focus:outline-none' value={query} onChange={(e => { 
+                                            setQuery(e.target.value)
+                                            filterBySearch(e) })} />
                                     </div>
-                                    <div className='flex flex-row gap-3 justify-around'>
-                                        <div className='input-type flex flex-col gap-1'>
-                                            <label className='text-white font-medium text-[14px]'>Type</label>
-                                            <select name="type" className='px-1 py-[3px] p-1 rounded-md font-medium text-[#716a6a]
-                                              focus:outline-none'>
-                                                <option >Select</option>
-                                                <option value="Part-time">Part time</option>
-                                                <option value="Full-time">Full time</option>
-                                                <option value="Remote">Remote</option>
-                                            </select>
-                                        </div>
-                                        <div className='input-type flex flex-col'>
-                                            <label className='text-white font-medium'>Sort</label>
-                                            <select name="sort-by" className='px-1 py-[3px] p-1 rounded-md font-medium text-[#716a6a]
-                                              focus:outline-none'>
-                                                <option >Select</option>
-                                                <option value="latest">latest</option>
-                                                <option value="oldest">oldest</option>
-                                            </select>
-                                        </div>
-                                        <div className='grid content-end'>
-                                            <button className='bg-[#f24150] px-5 py-1 rounded-md font-medium text-white
-                                              focus:outline-none'>Clear</button>
-                                        </div>
+                                    <div className='grid content-end sm:w-1/4 w-1/4'>
+                                        <button onClick={clearForm} className='bg-[#f24150] min-[428px]:px-5 min-[428px]:py-1 py-1 px-2 rounded-md font-medium text-white
+                                              focus:outline-none' >Clear</button>
                                     </div>
                                 </div>
                             </form>
@@ -74,7 +77,7 @@ const Home = () => {
                                 </p>
                             </div>
 
-                            <JobCard post={post} />
+                            <JobCard post={filteredList} />
                         </div>
                     </div>
                 </div>
