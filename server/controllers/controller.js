@@ -416,7 +416,7 @@ export const getAllUsers = async (req, res) => {
 
 export const addJob = async (req, res) => {
     try {
-        const { position, jobLocation, company, jobType, description } = req.body;
+        const { position, jobLocation, company, jobType, description, email } = req.body;
         //   const userId = req.user.id; // assuming user ID is retrieved from authentication middleware
         const jobPost = new JobModel({
             position,
@@ -424,13 +424,13 @@ export const addJob = async (req, res) => {
             company,
             jobType,
             description,
-            userId: '645a93109d149481386e6fa4',
+            email,
             createdTime: Date.now()
         });
         const savedJobPost = await jobPost.save();
         res.status(201).json(savedJobPost);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server Error');
+        res.status(501).send('Server Error');
     }
 }

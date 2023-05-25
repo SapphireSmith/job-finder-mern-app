@@ -47,6 +47,12 @@ const JobCard = ({ post }) => {
         return false
     }
 
+    function handleContactButtonClick(email) {
+        console.log(email);
+        const mailtoLink = `mailto:${email}`;
+        window.location.href = mailtoLink;
+    }
+
 
     return (
         <>
@@ -118,6 +124,8 @@ const JobCard = ({ post }) => {
                                         </p>
                                     </div>
                                     <button className='bg-green-500 text-white px-3 py-1 rounded-lg text-lg'
+                                        value={job.email}
+                                        onClick={() => handleContactButtonClick(job.email)}
                                     >Apply</button>
                                 </div>
                             </div>

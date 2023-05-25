@@ -14,6 +14,7 @@ const AddJob = () => {
             company: '',
             jobType: '',
             description: '',
+            email: ''
         },
         validateOnBlur: false,
         validateOnChange: false,
@@ -77,6 +78,10 @@ const AddJob = () => {
                                 <div className='flex flex-col gap-2 py-3 text-white font-extralight'>
                                     <label> Description </label>
                                     <textarea {...formik.getFieldProps('description')} type="text" className='px-4 p-2 font-light text-black text-[20px] rounded-md placeholder:px-2' placeholder='Description' required />
+                                </div>
+                                <div className='flex flex-col gap-2 py-3 text-white font-extralight'>
+                                    <label>Email <span className='font-thin italic'>(For contacting)</span></label>
+                                    <input {...formik.getFieldProps('email')} type="email" className='px-4 p-2 font-light text-black text-[20px] rounded-md placeholder:px-2' placeholder='Description' required />
                                 </div>
                                 <div className='p-1 my-2 rounded-md text-center text-white bg-[#436fff] '>
                                     <button className='font-normal w-full' type='submit' >Submit</button>

@@ -26,10 +26,10 @@ const jobSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true
-    },
+    email:{
+        type:String,
+        required:true
+    }
     // userType: {
     //     type: String,
     //     enum: ['Employee', 'Recruiter', 'Admin'],
