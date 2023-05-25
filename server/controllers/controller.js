@@ -93,6 +93,7 @@ export const userLogin = async (req, res) => {
             //Create JWT token
             const token = jwt.sign({
                 username: user.firstName,
+                userType: user.userType,
                 userId: user._id,
             }, JWT_SECRET, { expiresIn: '8hr' });
 
@@ -292,6 +293,21 @@ export const updatePasssword = async (req, res) => {
     }
 }
 
+export const getUsers = async (req, res) => {
+    try {
+        const users = await UserModel.find({ userType: 'Employee' }).select('-_id -password -status -userType');
+        if (users.length === 0) {
+            return res.status(400).json({
+                msg: "No users"
+            })
+        }
+
+        return res.status(200).json(users)
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: 'Internal server error' });
+    }
+}
 
 
 

@@ -16,9 +16,15 @@ const UserNav = () => {
         navigate('/user/login');
     }
 
-        const token = localStorage.getItem('userToken');
-        const payload = jwtDecode(token);
-        const username = payload.username
+    const token = localStorage.getItem('userToken');
+    const payload = jwtDecode(token);
+    const username = payload.username
+    if (payload.userType === 'Recruiter') {
+        var userType = true
+    } else {
+        var userType = false
+    }
+
 
     return (
         <nav className='z-50 fixed top-0 w-full'>
@@ -38,7 +44,11 @@ const UserNav = () => {
                     toggle && <div className='md:hidden hamburger-values absolute right-[3rem] top-[5rem] sm:right-[7rem] sm:top-[6rem] '>
                         <ul className=' text-white bg-blue-900 flex flex-col gap-5 px-7 py-9 rounded-lg font-extralight'>
                             <li><Link to={'/add-job'}>Add Jobs</Link></li>
-                            <li><Link to={'/saved-jobs'}>Saved Jobs</Link></li>
+                            {
+                                !userType ?
+                                    < li > <Link to={'/saved-jobs'}>Saved Jobs</Link></li>
+                                    : ''
+                            }
                             <li>
                                 <div className='flex justify-around items-center profile h-7 w-28 bg-blue-500 rounded-lg'>
                                     <div className='user-icon px-2 py-1 w-1/3'>
@@ -59,7 +69,11 @@ const UserNav = () => {
                             <div className='nav-links'>
                                 <ul className='text-white flex gap-4 '>
                                     <li><Link to={'/add-job'}>Add Jobs</Link></li>
-                                    <li><Link to={'/saved-jobs'}>Saved Jobs</Link></li>
+                                    {
+                                        !userType ?
+                                            < li > <Link to={'/saved-jobs'}>Saved Jobs</Link></li>
+                                            : ''
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -85,7 +99,7 @@ const UserNav = () => {
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav >
     );
 }
 

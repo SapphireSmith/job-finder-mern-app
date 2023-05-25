@@ -99,7 +99,7 @@ const SaveJobCard = () => {
 
                                         </p>
                                     </div>
-                                    <button className='bg-green-500 text-white px-3 py-1 rounded-sm text-lg'
+                                    <button className='bg-green-500 text-white px-3 py-1 rounded-lg text-lg'
                                     >Apply</button>
                                 </div>
                             </div>

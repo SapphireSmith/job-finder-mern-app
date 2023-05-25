@@ -15,7 +15,8 @@ import {
     getProfile,
     usernameUpdate,
     verifyPassword,
-    updatePasssword
+    updatePasssword,
+    getUsers
 } from '../controllers/controller.js';
 import { auth } from '../middleware/auth.js';
 
@@ -37,7 +38,8 @@ router.post('/user/update-password',auth,updatePasssword)
 //** GET REQUESTS */
 router.get('/user/job-posts', getJobs);
 router.get('/user/get-saved-post', auth, getSavedPost);
-router.get('/user/profile', auth, getProfile)
+router.get('/user/profile', auth, getProfile);
+router.get('/user/getusers',getUsers);
 
 //**END OF USERS ROUTES */
 

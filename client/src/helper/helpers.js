@@ -151,6 +151,17 @@ export const updatePassword = async (values) => {
       return Promise.reject({ msg: error.response.data.msg })
    }
 }
+
+export const getUsers = async () => {
+   try {
+      const { data, status } = await axios.get('/user/getusers');
+
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+      return { error }
+   }
+}
 //** <<------------ END OF USERS HANDLING FUNCTIONS ------------------>> */
 
 

@@ -4,7 +4,6 @@ import { getProfile, updateName, updatePassword, verifyPassword } from '../../..
 import { Toaster, toast } from 'react-hot-toast'
 import { useFormik } from 'formik'
 import { nameValidate, passwordValidation } from '../../../helper/validate'
-import { faL } from '@fortawesome/free-solid-svg-icons'
 
 const Profile = () => {
 
