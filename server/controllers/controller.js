@@ -11,7 +11,6 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 //** USER ROUTING FUNCTIONS */
 
-//** This function is used to register a new user */
 export const userRegister = async (req, res) => {
     try {
         const { firstName, lastName, email, password, userType } = req.body;
@@ -93,7 +92,7 @@ export const userLogin = async (req, res) => {
             }
             //Create JWT token
             const token = jwt.sign({
-                username:user.firstName,
+                username: user.firstName,
                 userId: user._id,
             }, JWT_SECRET, { expiresIn: '8hr' });
 
@@ -108,8 +107,6 @@ export const userLogin = async (req, res) => {
     }
 }
 
-
-//** To get all jobs */
 export const getJobs = async (req, res) => {
     try {
         const allJobs = await JobModel.find();
@@ -124,7 +121,6 @@ export const getJobs = async (req, res) => {
     }
 }
 
-//** Get saved post */
 export const getSavedPost = async (req, res) => {
     try {
         const { userId } = req.user;
@@ -147,7 +143,6 @@ export const getSavedPost = async (req, res) => {
     }
 };
 
-//** Function for saving post */
 export const saveJobPost = async (req, res) => {
     try {
         const { userId } = req.user;
@@ -180,7 +175,6 @@ export const saveJobPost = async (req, res) => {
     }
 };
 
-//** Function for deleting saved post */
 export const removeSavedPost = async (req, res) => {
     const { postId } = req.params;
     const { userId } = req.user;
@@ -201,10 +195,104 @@ export const removeSavedPost = async (req, res) => {
 
         res.status(200).json({ message: 'Saved post removed successfully' });
     } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+export const getProfile = async (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const user = await UserModel.findById({ _id: userId }).select('-email -password -status -userType -_id -createdAt');
+        if (user) {
+            res.status(200).json({
+                firstName: user.firstName,
+                lastName: user.lastName
+            });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+export const usernameUpdate = async (req, res) => {
+    try {
+        const { userId } = req.user;
+        const { fname, lname } = req.body;
+        const user = await UserModel.findByIdAndUpdate(
+            { _id: userId },
+            { firstName: fname, lastName: lname },
+            { new: true }
+        ).select('-email -password -status -userType -_id -createdAt');
+
+        return res.status(201).json(user);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+export const verifyPassword = async (req, res) => {
+    try {
+        const { userId } = req.user;
+        const { password } = req.body
+        const user = await UserModel.findById({ _id: userId }).select('-email -status -userType -_id -createdAt');
+        if (user) {
+            const passwordCheck = await bcrypt.compare(password, user.password);
+            if (!passwordCheck) {
+                return res.status(400).send({ msg: "Incorrect password" });
+            }
+
+            return res.status(200).send({
+                msg: "password verified",
+            });
+        }
+        return res.status(404).send({ msg: "user not found" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: 'Internal server error' });
+    }
+}
+
+export const updatePasssword = async (req, res) => {
+    try {
+        const { userId } = req.user;
+        const { newpassword } = req.body;
+
+        if (newpassword) {
+            const hashedPassword = await bcrypt.hash(newpassword, 10)
+
+            await UserModel.findByIdAndUpdate(
+                { _id: userId },
+                { password: hashedPassword },
+                { new: true }
+            ).then((response) => {
+                console.log(response);
+                return res.status(201).json({
+                    msg: "password changed"
+                })
+            }).catch((error) => {
+                console.log(error);
+                return res.status(400).json({
+                    msg: "Something went wrong"
+                })
+            })
+        } else {
+            return res.status(404).json({
+                msg: 'no password'
+            })
+        }
+
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: 'Internal server error' });
+    }
+}
+
+
 
 
 
@@ -213,7 +301,6 @@ export const removeSavedPost = async (req, res) => {
 
 //** ADMIN ROUTING FUNCTIONS  */
 
-//** Login function */
 export const adminLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -246,7 +333,6 @@ export const adminLogin = async (req, res) => {
     }
 }
 
-//** New registers function */
 export const newRegisters = async (req, res) => {
     try {
         const NewUsers = await UserModel.find({ status: false }).select('-email -password');
@@ -260,7 +346,6 @@ export const newRegisters = async (req, res) => {
     }
 };
 
-//** Status update New registers function */
 export const StatusUpdate = async (req, res) => {
     try {
         const { id } = req.params;
@@ -280,7 +365,6 @@ export const StatusUpdate = async (req, res) => {
     }
 };
 
-//** Reject and Delete user */
 export const rejectUser = async (req, res) => {
 
     try {
@@ -300,7 +384,6 @@ export const rejectUser = async (req, res) => {
 
 }
 
-//** Get all users list function*/
 export const getAllUsers = async (req, res) => {
     try {
         const users = await UserModel.find({ status: true }).select('-email -password -status');
@@ -315,7 +398,6 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
-//** To create job post */
 export const addJob = async (req, res) => {
     try {
         const { position, jobLocation, company, jobType, description } = req.body;

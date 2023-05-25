@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import UserNav from '../../../components/UserNav'
 import { getJobPosts } from '../../../helper/helpers'
 import JobCard from '../../../components/JobCard'
-import jwtDecode from "jwt-decode";
 
 
 
@@ -10,14 +9,10 @@ const Home = () => {
 
     const [post, setPost] = useState();
     const [postCount, setPostCount] = useState();
-    const [username, setUsername] = useState();
     const [filteredList, setFilteredList] = useState();
     const [query,setQuery] = useState()
 
     const fethPost = async () => {
-        const token = localStorage.getItem('userToken');
-        const payload = jwtDecode(token)
-        setUsername(payload.username)
         let { data } = await getJobPosts();
         setPost(data);
         setFilteredList(data)
@@ -44,7 +39,7 @@ const Home = () => {
 
     return (
         <div>
-            <UserNav username={username} />
+            <UserNav />
             <section>
 
                 <div className='bg-[#02203c] h-screen overflow-auto w-full pt-20 '>

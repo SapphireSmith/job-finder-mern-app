@@ -41,6 +41,28 @@ export const registerFormValidate = ({ }, values) => {
     return errors;
 };
 
+export const nameValidate = (values) => {
+    const regex = /[!@#$%^&*(),.?":{}|<>0-9\s]/;
+    if (regex.test(values.fname) || regex.test(values.lname)) {
+        toast.error('no special character or numbers')
+        return false
+    } else {
+        return true
+    }
+}
+
+export const passwordValidation = (values) => {
+    const errors = {};
+
+    if (!values.newpassword) {
+        errors.password = toast.error('Password is required');
+    } else if (values.newpassword.length < 6 || !/\W/.test(values.newpassword)) {
+        errors.password =
+            toast.error('Password should be at least 6 characters long and contain one special character');
+    }
+    return errors;
+}
+
 
 
 

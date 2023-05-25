@@ -102,6 +102,55 @@ export const removeSavedPost = async (postId) => {
    }
 }
 
+export const getProfile = async () => {
+   try {
+      const token = localStorage.getItem('userToken')
+      const { data } = await axios.get('/user/profile', { headers: { "Authorization": `${token}` } })
+
+      return {
+         firstName: data.firstName,
+         lastName: data.lastName
+      }
+   } catch (error) {
+      console.log(error);
+      return { error }
+   }
+}
+
+export const updateName = async (values) => {
+   try {
+      const token = localStorage.getItem('userToken')
+      const { status } = await axios.post('/user/profile-update', { ...values }, { headers: { "Authorization": `${token}` } })
+
+      return Promise.resolve({ status })
+   } catch (error) {
+      console.log(error);
+      return Promise.reject({ error })
+   }
+}
+
+export const verifyPassword = async (values) => {
+   try {
+      const token = localStorage.getItem('userToken');
+      const { data, status } = await axios.post('/user/verify', { ...values }, { headers: { "Authorization": `${token}` } })
+      return Promise.resolve({ data, status })
+   } catch (error) {
+      console.log(error);
+      return Promise.reject({ msg: error.response.data.msg })
+   }
+}
+
+export const updatePassword = async (values) => {
+   try {
+      const token = localStorage.getItem('userToken');
+      const { data, status } = await axios.post('/user/update-password', { ...values }, { headers: { "Authorization": `${token}` } })
+
+      return Promise.resolve({ data, status })
+   } catch (error) {
+      console.log(error);
+      return Promise.reject({ msg: error.response.data.msg })
+   }
+}
 //** <<------------ END OF USERS HANDLING FUNCTIONS ------------------>> */
 
 

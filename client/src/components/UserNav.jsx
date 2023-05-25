@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
+import jwtDecode from "jwt-decode";
 import Logo from '../assets/logo.svg';
 import { Spin as Hamburger } from 'hamburger-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-const UserNav = ({ username }) => {
+const UserNav = () => {
 
     const [toggle, setToggle] = useState(false);
     const navigate = useNavigate();
-
 
     const userLogOut = () => {
         localStorage.removeItem('userToken');
         navigate('/user/login');
     }
-    
+
+        const token = localStorage.getItem('userToken');
+        const payload = jwtDecode(token);
+        const username = payload.username
 
     return (
         <nav className='z-50 fixed top-0 w-full'>
