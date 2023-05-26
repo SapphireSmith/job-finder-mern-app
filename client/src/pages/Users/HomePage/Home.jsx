@@ -61,7 +61,7 @@ const Home = () => {
                 <div className='bg-[#02203c] h-screen overflow-auto w-full pt-20 '>
                     <div className='job-section min-[500px]:p-9 sm:px-20'>
                         <div className='all-jobs text-white text-center pt-7'>
-                            <h1 className='font-semibold text-[25px]'>{userType() ? 'Profile' : 'Jobs'}</h1>
+                            <h1 className='font-semibold text-[25px]'>{userType() ? 'All Profile' : 'Jobs'}</h1>
                         </div>
                         <div className='jobs-listing-menu'>
                             {
