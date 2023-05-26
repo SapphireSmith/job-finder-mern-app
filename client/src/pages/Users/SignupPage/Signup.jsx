@@ -60,57 +60,55 @@ const Signup = () => {
         }}></Toaster>
 
       <div className='bg-[#072541] '>
-        <div className='max-w-[1120px] mx-auto h-[100vh] flex justify-center items-center '>
-          <div className=''>
-            <h1 className='text-white text-center font-medium text-lg sm:text-2xl'>Register</h1>
-            <form className='flex flex-col mx-8 gap-5 pt-6 w-[1/2] sm:w-[300px] lg:w-[400px]'
-              onSubmit={formik.handleSubmit}
-            >
-              <div className='flex  justify-between'>
-                <div className='flex flex-col gap-2 w-[45%]'>
-                  <label className='text-white font-thin text-sm'>First Name</label>
-                  <input type="text" required placeholder='Name' className='px-3 py-1 rounded-md font-normal focus:outline-none'
-                    {...formik.getFieldProps('firstName')}
-                  />
-                </div>
-                <div className='flex flex-col gap-2 w-[45%]'>
-                  <label className='text-white font-thin text-sm'>Last Name</label>
-                  <input type="text" required placeholder='Name' className='px-3 py-1 rounded-md font-normal focus:outline-none'
-                    {...formik.getFieldProps('lastName')}
-                  />
-                </div>
-              </div>
-              <div className='flex flex-col gap-2'>
-                <label className='text-white font-thin text-lg'>Email</label>
-                <input type="email" required placeholder='email' className='px-3 py-1 rounded-md font-normal focus:outline-none'
-                  {...formik.getFieldProps('email')}
+        <div className='max-w-[1120px] h-screen flex flex-col mx-auto  justify-center items-center '>
+          <h1 className='text-white text-center font-medium text-lg sm:text-2xl'>Register</h1>
+          <form className='flex flex-col gap-5 pt-6 px-5 w-full sm:w-1/2 lg:w-1/2'
+            onSubmit={formik.handleSubmit}
+          >
+            <div className='flex  justify-between'>
+              <div className='flex flex-col gap-2 w-[45%]'>
+                <label className='text-white font-thin text-sm'>First Name</label>
+                <input type="text" required placeholder='Name' className='px-3 py-1 rounded-md font-normal focus:outline-none'
+                  {...formik.getFieldProps('firstName')}
                 />
               </div>
-              <div className='flex flex-col gap-2'>
-                <label className='text-white font-thin text-lg'>Password</label>
-                <input type="password" required placeholder='password' className='px-3 py-1 rounded-md font-normal focus:outline-none'
-                  {...formik.getFieldProps('password')}
+              <div className='flex flex-col gap-2 w-[45%]'>
+                <label className='text-white font-thin text-sm'>Last Name</label>
+                <input type="text" required placeholder='Name' className='px-3 py-1 rounded-md font-normal focus:outline-none'
+                  {...formik.getFieldProps('lastName')}
                 />
               </div>
-              <div className='flex justify-between text-white text-lg'>
-                <div className='flex flex-row w-[45%] justify-center'>
-                  <input type="radio" {...formik.getFieldProps('userType')} value="Employee" name="userType"
-                    onChange={formik.handleChange} />
-                  <label className='pl-4'>Employee</label>
-                </div>
-                <div className='flex flex-row w-[45%] justify-center'>
-                  <input type="radio" {...formik.getFieldProps('userType')} value="Recruiter" name="userType"
-                    onChange={formik.handleChange} />
-                  <label className='pl-4'>Recruiter</label>
-                </div>
-              </div>
-              <div className='flex pt-4'>
-                <button type='submit' className='text-white mx-auto bg-blue-400 w-full py-1 rounded-md font-semibold duration-300 hover:bg-[#015bbb]'>Login</button>
-              </div>
-            </form>
-            <div className='text-center pt-4'>
-              <p className='text-white font-semibold'>Already have an account? <Link className='font-semibold text-[#4ea3ff] hover:text-[#015bbb] duration-150' to={'/user/login'}>Login</Link></p>
             </div>
+            <div className='flex flex-col gap-2'>
+              <label className='text-white font-thin text-lg'>Email</label>
+              <input type="email" required placeholder='email' className='px-3 py-1 rounded-md font-normal focus:outline-none'
+                {...formik.getFieldProps('email')}
+              />
+            </div>
+            <div className='flex flex-col gap-2'>
+              <label className='text-white font-thin text-lg'>Password</label>
+              <input type="password" required placeholder='password' className='px-3 py-1 rounded-md font-normal focus:outline-none'
+                {...formik.getFieldProps('password')}
+              />
+            </div>
+            <div className='flex justify-between text-white text-lg'>
+              <div className='flex flex-row w-[45%] justify-center'>
+                <input type="radio" {...formik.getFieldProps('userType')} value="Employee" name="userType"
+                  onChange={formik.handleChange} />
+                <label className='pl-4'>Employee</label>
+              </div>
+              <div className='flex flex-row w-[45%] justify-center'>
+                <input type="radio" {...formik.getFieldProps('userType')} value="Recruiter" name="userType"
+                  onChange={formik.handleChange} />
+                <label className='pl-4'>Recruiter</label>
+              </div>
+            </div>
+            <div className='flex pt-4'>
+              <button type='submit' className='text-white mx-auto bg-blue-400 w-full py-1 rounded-md font-semibold duration-300 hover:bg-[#015bbb]'>Login</button>
+            </div>
+          </form>
+          <div className='text-center pt-4'>
+            <p className='text-white font-semibold'>Already have an account? <Link className='font-semibold text-[#4ea3ff] hover:text-[#015bbb] duration-150' to={'/user/login'}>Login</Link></p>
           </div>
         </div>
       </div>
