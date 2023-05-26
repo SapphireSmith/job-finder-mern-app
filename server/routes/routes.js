@@ -16,7 +16,9 @@ import {
     usernameUpdate,
     verifyPassword,
     updatePasssword,
-    getUsers
+    getUsers,
+    getAllJobs,
+    deletePost
 } from '../controllers/controller.js';
 import { auth } from '../middleware/auth.js';
 
@@ -56,6 +58,9 @@ router.post('/admin/add-job-post', addJob)
 //** GET REQUESTS */
 router.get('/admin/new-registers', newRegisters);
 router.get('/admin/users', getAllUsers)
+router.get('/admin/get-all-jobs', getAllJobs);
+router.get('/admin/delete-post/:id', deletePost);
+
 
 //**END OF ADMIN ROUTES */
 

@@ -34,7 +34,6 @@ const AdminNav = ({ navValues }) => {
                                 )
                             })
                         }
-                        <Link to={'/admin/dashboard/view-jobs'}>View All Jobs</Link>
                         <Link onClick={adminLogout} >Log out</Link>
                     </ul>
                 </div>}

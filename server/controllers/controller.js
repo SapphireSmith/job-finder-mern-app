@@ -434,3 +434,34 @@ export const addJob = async (req, res) => {
         res.status(501).send('Server Error');
     }
 }
+
+export const getAllJobs = async (req, res) => {
+    try {
+        const jobs = await JobModel.find();
+        if (jobs.length === 0) {
+            return res.status(404).json({ msg: "No jobs found" });
+        }
+
+        return res.status(200).send(jobs);
+    } catch (error) {
+        console.error(error);
+        res.status(501).send({ msg: 'Server error' });
+    }
+}
+
+export const deletePost = async (req, res) => {
+    try {
+        const post = await JobModel.findByIdAndDelete(req.params.id)
+        // Check if the post was found
+        if (!post) {
+            res.status(404).send({ msg: 'Post not found' });
+            return;
+        }
+
+        // Return a 200 OK response
+        res.status(200).send({ msg: 'Post Deleted' });
+    } catch (error) {
+        console.error(error);
+        res.status(501).send({ msg: 'Server error' });
+    }
+}

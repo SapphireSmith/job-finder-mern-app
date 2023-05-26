@@ -5,10 +5,12 @@ import { Spin as Hamburger } from 'hamburger-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { getProfile } from '../helper/helpers';
 
-const UserNav = () => {
+const UserNav = ({ refresh }) => {
 
     const [toggle, setToggle] = useState(false);
+    const [username, setUsername] = useState('');
     const navigate = useNavigate();
 
     const userLogOut = () => {
@@ -18,7 +20,15 @@ const UserNav = () => {
 
     const token = localStorage.getItem('userToken');
     const payload = jwtDecode(token);
-    const username = payload.username
+    useState(() => {
+        const fetchUsername = async () => {
+            let data = await getProfile()
+            if (data.firstName.length > 0) {
+                setUsername(data.firstName)
+            }
+        }
+        fetchUsername();
+    }, [refresh])
     if (payload.userType === 'Recruiter') {
         var userType = true
     } else {

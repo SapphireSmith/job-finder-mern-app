@@ -35,8 +35,8 @@ const Users = () => {
     },
     {
       id: 3,
-      title: 'Create new Admin',
-      path: '/admin/dashboard/add-admin'
+      title: 'View all Jobs',
+      path: '/admin/dashboard/view-jobs'
     }
   ]
 

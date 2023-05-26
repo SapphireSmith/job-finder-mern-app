@@ -101,6 +101,7 @@ const Profile = () => {
 
       checkPassswordPromise.then((res) => {
         if (res.status === 200) {
+          setRefresh(true)
           setPasswordUpdate(false);
           setNewPassword(true)
           formik3.resetForm()

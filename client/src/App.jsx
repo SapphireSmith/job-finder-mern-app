@@ -18,7 +18,6 @@ import Dashboard from './pages/Admin/Dashboard/Dashboard'
 import Users from './pages/Admin/Users/Users';
 import NewRegisters from './pages/Admin/NewRegisters/NewRegisters'
 import CreateJob from './pages/Admin/CreateJob/CreateJob'
-import CreateAdmin from './pages/Admin/CreateAdmin/CreateAdmin'
 import ViewJobs from './pages/Admin/ViewJobs/ViewJobs'
 
 //** Middlewares */
@@ -81,10 +80,6 @@ const router = createBrowserRouter([
   {
     path: 'admin/dashboard/new-job',
     element: <AuthorizeAdmin><CreateJob /></AuthorizeAdmin>
-  },
-  {
-    path: 'admin/dashboard/add-admin',
-    element: <AuthorizeAdmin><CreateAdmin /></AuthorizeAdmin>
   },
   {
     path: 'admin/dashboard/view-jobs',

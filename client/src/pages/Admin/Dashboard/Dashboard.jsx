@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsers, faAnglesRight, faUserPlus, faFileImport, faUserGear } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faAnglesRight, faUserPlus, faFileImport, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import AdminNavbar from '../../../components/AdminNav'
 
 const Dashboard = () => {
@@ -71,15 +71,15 @@ const Dashboard = () => {
               sm:w-[50%] sm:px-10 sm:py-14 sm:mb-10[2z
               \'>
               <h3 className='mb-8 font-semibold text-[20px]  text-white'>Add New Admin</h3>
-              <Link to={'/admin/dashboard/add-admin'}>
+              <Link to={'/admin/dashboard/view-jobs'}>
                 <div className='flex users-card  hover:cursor-pointer bg-[#42a0ec] p-7 rounded-lg shadow-inner hover:shadow-xl
                 sm:w-[100%] sm:h-[155px]'>
                   <div className='flex flex-col'>
-                    <h4 className='text-xl font-semibold text-[#eaeaea]'>Generate admin</h4>
-                    <p className='pt-6 text-[#eaeaea] font-thin text-[10px] '>Click here Generate admin</p>
+                    <h4 className='text-xl font-semibold text-[#eaeaea]'>View All Jobs</h4>
+                    <p className='pt-6 text-[#eaeaea] font-thin text-[10px] '>Click here to view all jobs</p>
                   </div>
                   <div className='users-icon flex w-full relative justify-center items-center'>
-                    <FontAwesomeIcon icon={faUserGear} color='#ffff' size='4x' />
+                    <FontAwesomeIcon icon={faEnvelopeOpen} color='#ffff' size='4x' />
                     <FontAwesomeIcon icon={faAnglesRight} color='#e6e9f2' className='absolute right-0 bottom-0 ' />
                   </div>
                 </div>

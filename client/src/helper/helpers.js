@@ -107,6 +107,7 @@ export const getProfile = async () => {
       const token = localStorage.getItem('userToken')
       const { data } = await axios.get('/user/profile', { headers: { "Authorization": `${token}` } })
 
+      console.log(data);
       return {
          firstName: data.firstName,
          lastName: data.lastName
@@ -162,6 +163,7 @@ export const getUsers = async () => {
       return { error }
    }
 }
+
 //** <<------------ END OF USERS HANDLING FUNCTIONS ------------------>> */
 
 
@@ -230,6 +232,26 @@ export const deleteUser = async (id) => {
 export const createJobPost = async (post) => {
    try {
       const { data, status } = await axios.post('/admin/add-job-post', { ...post });
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+      return { msg: error.response.data.msg, status: error.response.status }
+   }
+}
+
+export const getAllJobs = async () => {
+   try {
+      const { data, status } = await axios.get('/admin/get-all-jobs');
+      return { data, status }
+   } catch (error) {
+      console.log(error);
+      return { msg: error.response.data.msg, status: error.response.status }
+   }
+}
+
+export const deleteJobPost = async (id) => {
+   try {
+      const { data, status } = await axios.get(`/admin/delete-post/${id}`);
       return { data, status }
    } catch (error) {
       console.log(error);

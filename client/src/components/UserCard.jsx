@@ -16,7 +16,7 @@ const UserCard = ({ post }) => {
 
                 {
                     post && post.map((item) => (
-                        <div className='card bg-white rounded-lg md:w-[46%]'>
+                        <div  className='card bg-white rounded-lg md:w-[46%]'>
                             <div className='title border-b-2 p-4 '>
                                 <h2 className='text-black font-semibold'>
                                     {item.firstName.charAt(0).toUpperCase() + item.firstName.slice(1).toLowerCase()}{' '}
