@@ -59,7 +59,7 @@ const Login = () => {
         <div className='max-w-[1400px] mx-auto h-[100vh] flex justify-center items-center '>
           <div className='mx-auto '>
             <h1 className='text-white text-center font-medium text-lg'>Welcome Back <span className='ml-1'> :)</span></h1>
-            <form className='flex flex-col mx-8 gap-5 pt-6 w-[1/2] sm:w-[300px] lg:w-[400px]'
+            <form className='flex flex-col mx-8 gap-5 pt-6 sm:w-[300px] lg:w-[400px]'
               onSubmit={formik.handleSubmit}>
               <div className='flex flex-col gap-2'>
                 <label className='text-white font-thin text-lg'>Email</label>
@@ -76,7 +76,7 @@ const Login = () => {
               </div>
             </form>
             <div className='text-center pt-4'>
-              <p className='text-white font-semibold'>Not a member yet? <Link className='font-semibold text-[#4ea3ff] hover:text-[#015bbb] duration-150' to={'/user/signup'}>Register</Link></p>
+              <p className='text-white font-semibold'>Not a Member yet? <Link className='font-semibold text-[#4ea3ff] hover:text-[#015bbb] duration-150' to={'/user/signup'}>Register</Link></p>
             </div>
           </div>
         </div>
