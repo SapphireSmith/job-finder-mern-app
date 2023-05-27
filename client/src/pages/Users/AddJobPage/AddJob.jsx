@@ -45,7 +45,7 @@ const AddJob = () => {
                 }}
             />
             <section>
-                <div className="mt-20 w-full h-[100%] bg-[#02203c]">
+                <div className="mt-16 w-full h-[100%] bg-[#02203c]">
                     <div className='title'>
                         <h1 className="text-white text-center pt-10 
             text-[20px] font-semibold sm:text-3xl">Add Job</h1>

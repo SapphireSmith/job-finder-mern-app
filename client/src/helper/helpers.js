@@ -107,7 +107,6 @@ export const getProfile = async () => {
       const token = localStorage.getItem('userToken')
       const { data } = await axios.get('/user/profile', { headers: { "Authorization": `${token}` } })
 
-      console.log(data);
       return {
          firstName: data.firstName,
          lastName: data.lastName

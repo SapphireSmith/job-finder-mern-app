@@ -60,14 +60,16 @@ const UserNav = ({ refresh }) => {
                                     : ''
                             }
                             <li>
-                                <div className='flex justify-around items-center profile h-7 w-28 bg-blue-500 rounded-lg'>
-                                    <div className='user-icon px-2 py-1 w-1/3'>
-                                        <FontAwesomeIcon icon={faUser} color='#ffff' />
+                                <Link to={'/profile'}>
+                                    <div className='flex justify-around items-center profile h-7 w-28 bg-blue-500 rounded-lg'>
+                                        <div className='user-icon px-2 py-1 w-1/3'>
+                                            <FontAwesomeIcon icon={faUser} color='#ffff' />
+                                        </div>
+                                        <div className='user-name w-2/3'>
+                                            <p className='text-white text-sm font-thin truncate '>{username || 'Hello'}</p>
+                                        </div>
                                     </div>
-                                    <div className='user-name w-2/3'>
-                                        <p className='text-white text-sm font-thin truncate '>{username || 'Hello'}</p>
-                                    </div>
-                                </div>
+                                </Link>
                             </li>
                             <li><Link onClick={userLogOut}>Log out</Link></li>
                         </ul>
