@@ -10,7 +10,7 @@ const Landing = () => {
 
   return (
     <div className='landing-page bg-[#02203c] h-[100%]' >
-      <nav className="w-90vw max-w-1120 mx-auto h-6rem flex p-5 pt-11
+      <nav className="w-90vw max-w-1120 mx-auto h-6rem flex p-5 pt-8
        items-center justify-between md:pl-7 md:pr-7 lg:pl-20 lg:pr-20 xl:pl-28 xl:pr-28" >
         <img src={logo} alt="" className='flex w-[150px] ' />
         <div onClick={() => setToggle((prev) => !prev)} className='hamberger-icon flex ml-5 md:hidden'>
@@ -40,7 +40,7 @@ const Landing = () => {
       <section className='pb-64'>
         <div className='hero-section w-full flex md:pl-7 md:pr-7 lg:pl-20 lg:pr-20 xl:pl-28 xl:pr-28'>
           <div className='sm:w-1/2'>
-            <div className='Landing-page-title mt-[150px] m-5'>
+            <div className='Landing-page-title mt-28 m-5'>
               <h1 className='text-white text-[40px] font-semibold '>
                 Job <span className='text-[#2cb1bc]'>Finder</span> App
               </h1>
