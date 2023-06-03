@@ -58,7 +58,7 @@ const Login = () => {
       <div className='bg-[#072541]'>
         <div className='max-w-[1120px] h-screen flex flex-col mx-auto  justify-center items-center '>
             <h1 className='text-white text-center font-medium text-lg'>Welcome Back <span className='ml-1'> :)</span></h1>
-            <form className='flex flex-col mx-8 gap-5 pt-6 w-[1/2] sm:w-[300px] lg:w-[400px]'
+            <form className='flex flex-col gap-5 pt-6 px-5 w-full sm:w-1/2 lg:w-1/2'
               onSubmit={formik.handleSubmit}>
               <div className='flex flex-col gap-2 w-full'>
                 <label className='text-white font-thin text-lg'>Email</label>
