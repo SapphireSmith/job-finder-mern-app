@@ -94,13 +94,13 @@ const JobCard = ({ post }) => {
                                             bookmarkUpdate && placelogo(job._id) ? <FontAwesomeIcon
                                                 icon={faBookmark}
                                                 color="#FFA500"
-                                                size="lg"
+                                                size={20}
                                                 onClick={() => toggleBookmark(job._id)}
                                                 className='hover:cursor-pointer'
                                             /> : <FontAwesomeIcon
                                                 icon={faBookmark}
                                                 color="#cccccc"
-                                                size="lg"
+                                                size={25}
                                                 onClick={() => toggleBookmark(job._id)}
                                                 className='hover:cursor-pointer'
                                             />

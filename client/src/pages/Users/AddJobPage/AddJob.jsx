@@ -21,8 +21,7 @@ const AddJob = () => {
         onSubmit: async (values) => {
             const { data, status } = await postJobs(values);
             if (status === 201) {
-                toast.success("Created Successfully")
-                navigate('/home')
+                toast.success("Job post created")
                 formik.resetForm();
             } else {
                 toast.error("Can't post Please try again later");
@@ -81,7 +80,7 @@ const AddJob = () => {
                                 </div>
                                 <div className='flex flex-col gap-2 py-3 text-white font-extralight'>
                                     <label>Email <span className='font-thin italic'>(For contacting)</span></label>
-                                    <input {...formik.getFieldProps('email')} type="email" className='px-4 p-2 font-light text-black text-[20px] rounded-md placeholder:px-2' placeholder='Description' required />
+                                    <input {...formik.getFieldProps('email')} type="email" className='px-4 p-2 font-light text-black text-[20px] rounded-md placeholder:px-2' placeholder='email' required />
                                 </div>
                                 <div className='p-1 my-2 rounded-md text-center text-white bg-[#436fff] '>
                                     <button className='font-normal w-full' type='submit' >Submit</button>

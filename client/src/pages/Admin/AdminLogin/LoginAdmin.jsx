@@ -17,7 +17,6 @@ const LoginAdmin = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      console.log(values);
       let loginPromise = adminLogin(values);
 
       toast.promise(loginPromise, {

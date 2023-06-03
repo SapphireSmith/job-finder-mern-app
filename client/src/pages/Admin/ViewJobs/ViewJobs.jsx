@@ -72,13 +72,13 @@ const ViewJobs = () => {
         }}
       />
 
-      <section className='mt-20 bg-[#112a42]'>
+      <section className='mt-20 bg-[#112a42] pb-10'>
         <div className='title w-full text-center '>
           <h1 className='text-[23px] sm:text-[30px] p-6 text-white font-semibold underline'>All Jobs</h1>
         </div>
 
-        <div className="relative overflow-x-auto h-[100vh] md:p-4">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <div className="relative overflow-x-auto overflow-y-hidden h-[100vh] md:p-4 ">
+          <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">

@@ -54,38 +54,11 @@ export const userRegister = async (req, res) => {
 }
 
 //** This function is used to log in a user */
-// export const userLogin = async (req, res) => {
-//     try {
-//         const { email, password } = req.body;
-//         const user = await UserModel.findOne({ email });
-//         if (user?.status) {
-//             const passwordCheck = await bcrypt.compare(password, user.password);
-//             if (!passwordCheck) {
-//                 return res.status(400).send({ msg: "Incorrect password" });
-//             }
-//             //Create JWT token
-//             const token = jwt.sign({
-//                 userId: user._id,
-//             }, JWT_SECRET, { expiresIn: '8hr' });
-
-//             return res.status(200).send({
-//                 msg: "Login success...",
-//                 token
-//             });
-//         } else if (user) {
-//             return res.status(401).send({ msg: "Admin approval pending" });
-//         }
-//         return res.status(404).send({ msg: "Email id not registered" });
-//     } catch (error) {
-//         return res.status(500).send({ error });
-//     }
-// }
-
 export const userLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await UserModel.findOne({ email });
-        if (user) {
+        if (user?.status) {
             const passwordCheck = await bcrypt.compare(password, user.password);
             if (!passwordCheck) {
                 return res.status(400).send({ msg: "Incorrect password" });
@@ -101,12 +74,41 @@ export const userLogin = async (req, res) => {
                 msg: "Login success...",
                 token
             });
+        } else if (user) {
+            return res.status(401).send({ msg: "Admin approval pending" });
         }
         return res.status(404).send({ msg: "Email id not registered" });
     } catch (error) {
         return res.status(500).send({ error });
     }
 }
+
+// export const userLogin = async (req, res) => {
+//     try {
+//         const { email, password } = req.body;
+//         const user = await UserModel.findOne({ email });
+//         if (user) {
+//             const passwordCheck = await bcrypt.compare(password, user.password);
+//             if (!passwordCheck) {
+//                 return res.status(400).send({ msg: "Incorrect password" });
+//             }
+//             //Create JWT token
+//             const token = jwt.sign({
+//                 username: user.firstName,
+//                 userType: user.userType,
+//                 userId: user._id,
+//             }, JWT_SECRET, { expiresIn: '8hr' });
+
+//             return res.status(200).send({
+//                 msg: "Login success...",
+//                 token
+//             });
+//         }
+//         return res.status(404).send({ msg: "Email id not registered" });
+//     } catch (error) {
+//         return res.status(500).send({ error });
+//     }
+// }
 
 export const getJobs = async (req, res) => {
     try {
@@ -270,7 +272,6 @@ export const updatePasssword = async (req, res) => {
                 { password: hashedPassword },
                 { new: true }
             ).then((response) => {
-                console.log(response);
                 return res.status(201).json({
                     msg: "password changed"
                 })
