@@ -77,7 +77,7 @@ const ViewJobs = () => {
           <h1 className='text-[23px] sm:text-[30px] p-6 text-white font-semibold underline'>All Jobs</h1>
         </div>
 
-        <div className="relative overflow-x-auto overflow-y-hidden h-[100vh] md:p-4 ">
+        <div className="relative overflow-x-auto overflow-y-auto h-[100vh] md:p-4 ">
           <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
