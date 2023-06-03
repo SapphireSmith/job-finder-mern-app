@@ -1,6 +1,7 @@
 import React from 'react'
 import { faToolbox, faLocationArrow, faCalendarDay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { formatDate } from '../helper/convert';
 
 
 const UserCard = ({ post }) => {
@@ -13,10 +14,9 @@ const UserCard = ({ post }) => {
     return (
         <>
             <div className='job-cards pt-5 px-6 flex flex-col gap-7  md:flex-row md:w-[100%] md:flex-wrap md:items-center md:justify-center'>
-
                 {
-                    post && post.map((item) => (
-                        <div  className='card bg-white rounded-lg md:w-[46%]'>
+                    post && post.map((item, index) => (
+                        <div key={index} className='card bg-white rounded-lg md:w-[46%]'>
                             <div className='title border-b-2 p-4 '>
                                 <h2 className='text-black font-semibold'>
                                     {item.firstName.charAt(0).toUpperCase() + item.firstName.slice(1).toLowerCase()}{' '}
@@ -26,15 +26,15 @@ const UserCard = ({ post }) => {
                             <div className='p-4 flex flex-col gap-2'>
                                 <div className='flex gap-2 items-center'>
                                     <FontAwesomeIcon icon={faToolbox} color='#3d3c3c' />
-                                    <p className='font-thin'>Mern Stack developer</p>
+                                    <p className='font-thin'>{item.skill && item.skill}</p>
                                 </div>
                                 <div className='flex gap-2 items-center'>
                                     <FontAwesomeIcon icon={faLocationArrow} color='#3d3c3c' />
-                                    <p className='font-thin'>Contry</p>
+                                    <p className='font-thin'>{item.country && item.country}</p>
                                 </div>
                                 <div className='flex gap-2 items-center'>
                                     <FontAwesomeIcon icon={faCalendarDay} color='#3d3c3c' />
-                                    <p className='font-thin'>18/4/2004</p>
+                                    <p className='font-thin'>{formatDate(item.createdAt)}</p>
                                 </div>
                             </div>
                             <div className='flex justify-between p-4 gap-4 items-center'>
@@ -51,8 +51,6 @@ const UserCard = ({ post }) => {
                         </div>
                     ))
                 }
-
-
             </div>
         </>
     )

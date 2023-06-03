@@ -13,7 +13,10 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 export const userRegister = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, userType } = req.body;
+        const { firstName, lastName, email, password, userType, country, skill } = req.body;
+        console.log(req.body);
+        console.log(country, skill);
+
 
         //** Check if email is already registered */
         const user = await UserModel.findOne({ email });
@@ -25,16 +28,30 @@ export const userRegister = async (req, res) => {
         if (password) {
             bcrypt.hash(password, 10)
                 .then((hashedPassword) => {
-                    const user = UserModel({
-                        firstName,
-                        lastName,
-                        password: hashedPassword,
-                        email,
-                        status: false,
-                        userType
-                    });
+                    if (country === '' && skill === '') {
+                        var savedUser = UserModel({
+                            firstName,
+                            lastName,
+                            password: hashedPassword,
+                            email,
+                            status: false,
+                            userType
+                        });
+                    } else {
+                        var savedUser = UserModel({
+                            firstName,
+                            lastName,
+                            password: hashedPassword,
+                            email,
+                            status: false,
+                            userType,
+                            skill,
+                            country
+                        });
+                    }
 
-                    user.save()
+
+                    savedUser.save()
                         .then((result) => {
                             res.status(201).send({ msg: "Account created..." });
                         })
@@ -303,6 +320,7 @@ export const getUsers = async (req, res) => {
             })
         }
 
+        console.log(users);
         return res.status(200).json(users)
     } catch (error) {
         console.error(error);

@@ -22,9 +22,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    status:{
-        type:Boolean,
-        require:true
+    status: {
+        type: Boolean,
+        require: true
+    },
+    skill: {
+        type: String,
+    },
+    country: {
+        type: String,
     },
     createdAt: {
         type: Date,
@@ -32,6 +38,6 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-const UserModel = mongoose.model('user', userSchema,'users');
+const UserModel = mongoose.model('user', userSchema, 'users');
 
 export { UserModel };

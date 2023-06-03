@@ -15,7 +15,6 @@ const Home = () => {
     const userType = () => {
         const token = localStorage.getItem('userToken');
         let payload = jwtDecode(token);
-        console.log(payload);
         if (payload.userType === 'Recruiter') {
             return true
         } else if (payload.userType === 'Employee') {
