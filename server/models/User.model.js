@@ -32,6 +32,9 @@ const userSchema = new mongoose.Schema({
     country: {
         type: String,
     },
+    resume: {
+        type: String
+    },
     createdAt: {
         type: Date,
         default: Date.now

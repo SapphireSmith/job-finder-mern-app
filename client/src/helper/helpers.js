@@ -8,7 +8,7 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 //** User register function */
 export const userRegister = async (values) => {
    try {
-      const { data: { msg }, status } = await axios.post('user/register', { ...values });
+      const { data: { msg }, status } = await axios.post('user/register', { ...values }, { Headers: { 'content-type': 'multipart/form-data' } });
 
       //**Work pending here (Sending email after registration of the user) */;
       // const status = response.status;
