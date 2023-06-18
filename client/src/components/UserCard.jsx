@@ -2,6 +2,7 @@ import React from 'react'
 import { faToolbox, faLocationArrow, faCalendarDay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatDate } from '../helper/convert';
+import { getfilePreview } from '../helper/helpers';
 
 
 const UserCard = ({ post }) => {
@@ -9,6 +10,11 @@ const UserCard = ({ post }) => {
     function handleContactButtonClick(email) {
         const mailtoLink = `mailto:${email}`;
         window.location.href = mailtoLink;
+    }
+
+    const viewFile = async (e, file) => {
+        e.preventDefault();
+        await getfilePreview(file);
     }
 
     return (
@@ -37,12 +43,14 @@ const UserCard = ({ post }) => {
                                     <p className='font-thin'>{formatDate(item.createdAt)}</p>
                                 </div>
                             </div>
-                            <div className='flex justify-between p-4 gap-4 items-center'>
-                                <div className='bookmark flex flex-col font-light '>
-                                    {/* how to rerender the p tag only */}
-                                    <p className='text-center text-[13px] text-[#3d3c3c] font-medium mt-1'>
-                                    </p>
-                                </div>
+                            <div className='flex justify-end p-4 gap-4 items-center'>
+                                {
+                                    item.file ? <button className='bg-blue-500 text-white px-3 py-2 rounded-lg text-sm'
+                                        value={item.email}
+                                        onClick={(e) => viewFile(e, item.file)}
+                                    >View Cv / resume</button> : ''
+                                }
+
                                 <button className='bg-green-500 text-white px-3 py-1 rounded-lg text-lg'
                                     value={item.email}
                                     onClick={() => handleContactButtonClick(item.email)}

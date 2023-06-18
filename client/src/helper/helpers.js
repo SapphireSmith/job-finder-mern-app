@@ -179,14 +179,20 @@ export const fileUpload = async (file, token) => {
    }
 }
 
-export const getfilePreview = async () => {
+export const getfilePreview = async (file) => {
    try {
-      const token = localStorage.getItem('userToken');
-      const { status, data } = await axios.get('user/get-file', { headers: { "Authorization": `${token}` } })
-      if (status === 200) {
+      if (file) {
          const newTab = window.open();
-         newTab.location.href = `${axios.defaults.baseURL}/uploads/${data.file}`;
+         newTab.location.href = `${axios.defaults.baseURL}/uploads/${file}`;
+      } else {
+         const token = localStorage.getItem('userToken');
+         const { status, data } = await axios.get('user/get-file', { headers: { "Authorization": `${token}` } })
+         if (status === 200) {
+            const newTab = window.open();
+            newTab.location.href = `${axios.defaults.baseURL}/uploads/${data.file}`;
+         }
       }
+
    } catch (error) {
       console.log(error);
       return error
@@ -198,7 +204,7 @@ export const getFileName = async () => {
    try {
       const token = localStorage.getItem('userToken');
       const { status, data } = await axios.get('user/get-file', { headers: { "Authorization": `${token}` } })
- console.log(data);
+      console.log(data);
       if (status === 200) {
          return { data };
       }
