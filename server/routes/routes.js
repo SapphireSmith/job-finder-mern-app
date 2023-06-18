@@ -18,10 +18,11 @@ import {
     updatePasssword,
     getUsers,
     getAllJobs,
-    deletePost
+    deletePost,
+    userfileUpload,
+    getFile
 } from '../controllers/controller.js';
 import { auth } from '../middleware/auth.js';
-
 
 const router = express.Router();
 
@@ -36,12 +37,14 @@ router.post('/user/remove-saved-post/:postId', auth, removeSavedPost);
 router.post('/user/profile-update', auth, usernameUpdate)
 router.post('/user/verify', auth, verifyPassword)
 router.post('/user/update-password', auth, updatePasssword)
+router.post('/user/file-upload', auth, userfileUpload)
 
 //** GET REQUESTS */
 router.get('/user/job-posts', getJobs);
 router.get('/user/get-saved-post', auth, getSavedPost);
 router.get('/user/profile', auth, getProfile);
 router.get('/user/getusers', getUsers);
+router.get('/user/get-file',auth,getFile)
 
 //**END OF USERS ROUTES */
 

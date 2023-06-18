@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import UserNav from '../../../components/UserNav'
-import { getProfile, updateName, updatePassword, verifyPassword } from '../../../helper/helpers'
+import { fileUpload, getFileName, getProfile, getfilePreview, updateName, updatePassword, verifyPassword } from '../../../helper/helpers'
 import { Toaster, toast } from 'react-hot-toast'
 import { useFormik } from 'formik'
 import { nameValidate, passwordValidation } from '../../../helper/validate'
@@ -24,11 +24,17 @@ const Profile = () => {
   })
 
   const [passwordUpdate, setPasswordUpdate] = useState(true)
-  const [newPassword, setNewPassword] = useState(false)
+  const [newPassword, setNewPassword] = useState(false);
+  const [FileName, setFileName] = useState();
+  const [userType, setUserType] = useState();
+
 
   //** use effect for username retreval */
   const fetchUserName = async () => {
     const { firstName, lastName } = await getProfile();
+    const { data } = await getFileName();
+    setFileName(data.file);
+    setUserType(data.userType)
     setUserName(prev => {
       return {
         ...prev,
@@ -38,9 +44,11 @@ const Profile = () => {
     })
   }
 
+
   useEffect(() => {
     fetchUserName()
   }, [])
+
 
   //** Update control */
   const updateControll = (e, condition) => {
@@ -112,11 +120,13 @@ const Profile = () => {
   const formik3 = useFormik({
     initialValues: {
       newpassword: '',
+      confirmnewpassword: ''
     },
     validate: passwordValidation,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values) => {
+      console.log(values);
       const newPasswordPromise = updatePassword(values);
 
       toast.promise(newPasswordPromise, {
@@ -146,7 +156,34 @@ const Profile = () => {
       return { ...prev, oldPassword: false }
     })
   }
+  const [file, setFile] = useState({
+    file: ''
+  });
 
+  const handleFile = (e) => {
+    setFile({ ...file, file: e.target.files[0] })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', file.file);
+
+    try {
+      const token = localStorage.getItem('userToken');
+      const { data, status } = await fileUpload(formData, token);
+      if (status === 201) {
+        alert("File Uploaded Successfully");
+        fetchUserName();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handlePreview = async () => {
+    await getfilePreview();
+  }
   return (
     <div>
       <UserNav />
@@ -163,8 +200,8 @@ const Profile = () => {
         }}
       />
 
-      <div className='bg-[#02203c] w-full h-screen pt-24'>
-        <div className='max-w-[1100px] mx-auto'>
+      <div className='bg-[#02203c]  h-[140vh] pt-24 '>
+        <div className='max-w-[1100px] mx-auto '>
           <div className='text-center text-white pt-6 sm:pt-16 '>
             <h1 className=' text-2xl sm:text-3xl font-semibold'>Profile</h1>
           </div>
@@ -256,6 +293,13 @@ const Profile = () => {
                     disabled={!update.oldPassword ? true : false}
                     {...formik3.getFieldProps('newpassword')} />
                 </div>
+                <div className='flex flex-col gap-2'>
+                  <label className='font-thin text-sm text-white'>Confirm new password</label>
+                  <input type="text" placeholder='Confirm new password' className='px-3 py-1 rounded-md placeholder:font-mono font-normal placeholder:text-black
+               focus:outline-none   disabled:bg-slate-200 disabled:placeholder:text-gray-500 '
+                    disabled={!update.oldPassword ? true : false}
+                    {...formik3.getFieldProps('confirmnewpassword')} />
+                </div>
                 <div className='flex justify-end gap-2'>
                   <button className='px-3 py-1 bg-red-500 text-white rounded-md  font-light text-sm'
                     onClick={e => {
@@ -271,6 +315,38 @@ const Profile = () => {
                   >Update</button>
                 </div>
               </form> : ''
+          }
+
+          {
+            userType && userType === 'Recruiter' ? '' :
+              <div className='file-form pt-16 flex flex-col px-14 gap-7  sm:px-[140px] md:px-[170px] lg:px-[230px] xl:px-[300px]'>
+                <form className='bg-[#02203c] flex flex-col' onSubmit={handleSubmit} encType='multipart/form-data' >
+                  <div className=" flex flex-col gap-2 ">
+                    <label className='text-white font-thin text-lg'>Attach your cv/resume</label>
+
+                    <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                      aria-describedby="file_input_help" name='file' id="file_input" type="file" required
+                      onChange={(e) => {
+                        handleFile(e)
+                      }}
+                    />
+                    {
+                      FileName ? <p className='text-white'>Current file: {FileName && FileName ? FileName : ''}</p> : ''
+                    }
+
+                  </div>
+                  <div className='pt-4 flex justify-center gap-4'>
+                    <button type='submit'
+                      name="image" // Add the name attribute to match the backend expectations
+                      required className={'justify-self-end bg-blue-400 text-center px-4 py-1 rounded-md text-white hover:bg-blue-500 duration-300'} >Upload</button>
+                  </div>
+                </form>
+                {
+                  FileName && <div>
+                    <button onClick={handlePreview} className={'justify-self-end bg-green-400 text-center px-4 py-1 rounded-md text-white hover:bg-green-500 duration-300'}>Preview</button>
+                  </div>
+                }
+              </div>
           }
 
 

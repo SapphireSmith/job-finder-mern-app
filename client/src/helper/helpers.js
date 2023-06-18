@@ -163,6 +163,51 @@ export const getUsers = async () => {
    }
 }
 
+export const fileUpload = async (file, token) => {
+   try {
+      const config = {
+         headers: {
+            'Authorization': token
+         }
+      };
+
+      const data = await axios.post('/user/file-upload', file, config);
+
+      return data;
+   } catch (error) {
+      return error
+   }
+}
+
+export const getfilePreview = async () => {
+   try {
+      const token = localStorage.getItem('userToken');
+      const { status, data } = await axios.get('user/get-file', { headers: { "Authorization": `${token}` } })
+      if (status === 200) {
+         const newTab = window.open();
+         newTab.location.href = `${axios.defaults.baseURL}/uploads/${data.file}`;
+      }
+   } catch (error) {
+      console.log(error);
+      return error
+   }
+}
+
+
+export const getFileName = async () => {
+   console.log('haii');
+   try {
+      const token = localStorage.getItem('userToken');
+      const { status, data } = await axios.get('user/get-file', { headers: { "Authorization": `${token}` } })
+     
+      if (status === 200) {
+         return { data };
+      }
+   } catch (error) {
+      console.log(error);
+      return error
+   }
+}
 //** <<------------ END OF USERS HANDLING FUNCTIONS ------------------>> */
 
 

@@ -13,24 +13,27 @@ export const registerValidate = async (values) => {
 export const registerFormValidate = ({ }, values) => {
     const errors = {};
     if (!values.firstName) {
-        errors.firstName = toast.error('First name is required ')
+        return  errors.firstName = toast.error('First name is required ')
     }
     if (!values.lastName) {
-        errors.lastName = toast.error('Last name is required');
+        return  errors.lastName = toast.error('Last name is required');
     }
     if (!values.email) {
-        errors.email = toast.error('Email id is required');
+        return  errors.email = toast.error('Email id is required');
     } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-        errors.email = toast.error('Invalid email address');
+        return  errors.email = toast.error('Invalid email address');
+    }
+    if (values.password !== values.confirmpassword) {
+        return   errors.password = toast.error("Password does't matching");
     }
     if (!values.password) {
-        errors.password = toast.error('Password is required');
+        return  errors.password = toast.error('Password is required');
     } else if (values.password.length < 6 || !/\W/.test(values.password)) {
-        errors.password =
-            toast.error('Password should be at least 6 characters long and contain one special character');
+        return   errors.password =
+           toast.error('Password should be at least 6 characters long and contain one special character');
     }
     if (!values.userType) {
-        errors.userType = toast.error('User type is required')
+        return  errors.userType = toast.error('User type is required')
     }
     // if (Object.keys(errors).length === 0) {
     //     return {};
@@ -38,7 +41,6 @@ export const registerFormValidate = ({ }, values) => {
     //     // Show the error message using react-hot-toast
     //     toast.error('There are errors in the form');
     // }
-    return errors;
 };
 
 export const nameValidate = (values) => {
@@ -53,14 +55,16 @@ export const nameValidate = (values) => {
 
 export const passwordValidation = (values) => {
     const errors = {};
-
+    if (values.newpassword !== values.confirmnewpassword) {
+        return errors.password = toast.error("Password does't matching");
+    }
     if (!values.newpassword) {
-        errors.password = toast.error('Password is required');
+        return errors.password = toast.error('Password is required');
     } else if (values.newpassword.length < 6 || !/\W/.test(values.newpassword)) {
-        errors.password =
+        return errors.password =
             toast.error('Password should be at least 6 characters long and contain one special character');
     }
-    return errors;
+
 }
 
 

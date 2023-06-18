@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
     country: {
         type: String,
     },
-    resume: {
+    file: {
         type: String
     },
     createdAt: {

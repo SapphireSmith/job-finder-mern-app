@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv';
 import { SavedPostModel } from "../models/SavedJobs.model.js";
+import { fileURLToPath } from 'url';
+import path from 'path';
+import fs from 'fs'
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET
@@ -252,7 +255,7 @@ export const usernameUpdate = async (req, res) => {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
     }
-}
+};
 
 export const verifyPassword = async (req, res) => {
     try {
@@ -274,7 +277,7 @@ export const verifyPassword = async (req, res) => {
         console.error(error);
         return res.status(500).json({ msg: 'Internal server error' });
     }
-}
+};
 
 export const updatePasssword = async (req, res) => {
     try {
@@ -309,7 +312,7 @@ export const updatePasssword = async (req, res) => {
         console.error(error);
         return res.status(500).json({ msg: 'Internal server error' });
     }
-}
+};
 
 export const getUsers = async (req, res) => {
     try {
@@ -325,10 +328,51 @@ export const getUsers = async (req, res) => {
         console.error(error);
         return res.status(500).json({ msg: 'Internal server error' });
     }
-}
+};
 
+export const userfileUpload = async (req, res) => {
+    const uid = req.user.userId
+    if (!req.files) {
+        res.status(404).json({ error: "Image not found" });
+    }
+    const file = req.files.image;
 
+    const path = "./uploads/" + uid + '--' + file.name;
 
+    file.mv(path, async (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(301).status(500).send(err);
+        }
+        const update = await UserModel.findByIdAndUpdate(uid,
+            { file: uid + '--' + file.name },
+            { new: true }
+        );
+
+        if (!update) {
+            console.log("Couldn't update the file");
+        }
+
+        return res.status(201).send({ status: "success", path: path });
+    });
+};
+
+export const getFile = async (req, res) => {
+    try {
+        const { userId } = req.user;
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (user.file) {
+            res.status(200).send({ file: user.file, userType: user.userType });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 
 

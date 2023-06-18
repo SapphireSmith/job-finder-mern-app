@@ -18,6 +18,7 @@ const Signup = () => {
       lastName: '',
       email: '',
       password: '',
+      confirmpassword: '',
       userType: '',
       ...(addOnForm && { skill: '', country: 'India' }),
     },
@@ -25,31 +26,32 @@ const Signup = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
-      if (!addOnForm) {
-        values.skill = ''
-        values.country = ''
-      } else {
+      console.log(values);
+      // if (!addOnForm) {
+      //   values.skill = ''
+      //   values.country = ''
+      // } else {
 
-      }
-      const userRgisterPromise = userRegister(values);
+      // }
+      // const userRgisterPromise = userRegister(values);
 
-      toast.promise(userRgisterPromise, {
-        loading: "Creating Account",
-        success: (res) => {
-          console.log(res);
-          return res.msg
-        },
-        error: (res) => {
-          console.log(res);
-          return res.msg
-        }
-      })
+      // toast.promise(userRgisterPromise, {
+      //   loading: "Creating Account",
+      //   success: (res) => {
+      //     console.log(res);
+      //     return res.msg
+      //   },
+      //   error: (res) => {
+      //     console.log(res);
+      //     return res.msg
+      //   }
+      // })
 
-      userRgisterPromise.then((res) => {
-        setTimeout(() => {
-          navigate('/user/login')
-        }, 1900)
-      })
+      // userRgisterPromise.then((res) => {
+      //   setTimeout(() => {
+      //     navigate('/user/login')
+      //   }, 1900)
+      // })
     }
   })
 
@@ -96,6 +98,12 @@ const Signup = () => {
               <label className='text-white font-thin text-lg'>Password</label>
               <input type="password" required placeholder='password' className='px-3 py-1 rounded-md font-normal focus:outline-none'
                 {...formik.getFieldProps('password')}
+              />
+            </div>
+            <div className='flex flex-col gap-2'>
+              <label className='text-white font-thin text-lg'>Confirm Password</label>
+              <input type="password" required placeholder='password' className='px-3 py-1 rounded-md font-normal focus:outline-none'
+                {...formik.getFieldProps('confirmpassword')}
               />
             </div>
             <div className='flex justify-between text-white text-lg'>
