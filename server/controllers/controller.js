@@ -369,7 +369,6 @@ export const getFile = async (req, res) => {
             res.status(200).send({ file: user.file, userType: user.userType });
         } else {
             res.status(200).send({ userType: user.userType });
-
         }
     } catch (error) {
         console.error(error);
