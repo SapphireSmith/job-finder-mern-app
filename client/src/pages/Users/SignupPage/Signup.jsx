@@ -27,31 +27,31 @@ const Signup = () => {
     validateOnChange: false,
     onSubmit: async (values) => {
       console.log(values);
-      // if (!addOnForm) {
-      //   values.skill = ''
-      //   values.country = ''
-      // } else {
+      if (!addOnForm) {
+        values.skill = ''
+        values.country = ''
+      } else {
 
-      // }
-      // const userRgisterPromise = userRegister(values);
+      }
+      const userRgisterPromise = userRegister(values);
 
-      // toast.promise(userRgisterPromise, {
-      //   loading: "Creating Account",
-      //   success: (res) => {
-      //     console.log(res);
-      //     return res.msg
-      //   },
-      //   error: (res) => {
-      //     console.log(res);
-      //     return res.msg
-      //   }
-      // })
+      toast.promise(userRgisterPromise, {
+        loading: "Creating Account",
+        success: (res) => {
+          console.log(res);
+          return res.msg
+        },
+        error: (res) => {
+          console.log(res);
+          return res.msg
+        }
+      })
 
-      // userRgisterPromise.then((res) => {
-      //   setTimeout(() => {
-      //     navigate('/user/login')
-      //   }, 1900)
-      // })
+      userRgisterPromise.then((res) => {
+        setTimeout(() => {
+          navigate('/user/login')
+        }, 1900)
+      })
     }
   })
 
