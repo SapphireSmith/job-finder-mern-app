@@ -32,7 +32,9 @@ const Profile = () => {
   //** use effect for username retreval */
   const fetchUserName = async () => {
     const { firstName, lastName } = await getProfile();
+    console.log(firstName, lastName);
     const { data } = await getFileName();
+    console.log(data);
     setFileName(data.file);
     setUserType(data.userType)
     setUserName(prev => {

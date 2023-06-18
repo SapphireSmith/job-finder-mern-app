@@ -195,11 +195,10 @@ export const getfilePreview = async () => {
 
 
 export const getFileName = async () => {
-   console.log('haii');
    try {
       const token = localStorage.getItem('userToken');
       const { status, data } = await axios.get('user/get-file', { headers: { "Authorization": `${token}` } })
-     
+ console.log(data);
       if (status === 200) {
          return { data };
       }
